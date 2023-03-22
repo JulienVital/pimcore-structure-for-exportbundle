@@ -12,7 +12,9 @@
   },
   "require-dev": {
     "codeception/codeception": "^4.1.12",
-    "codeception/module-symfony": "^1"
+    "codeception/module-symfony": "^1",
+    "sempro/phpunit-pretty-print": "^1.4",
+    "symfony/phpunit-bridge": "^6.2"
   },
   "suggest": {
     "pimcore/data-hub": "Universal data interface for GraphQL, CSV and other formats"
