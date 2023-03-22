@@ -11,10 +11,10 @@
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '2',
-   'name' => 'class2',
+   'name' => 'ObjetTypeTWO',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679435011,
+   'modificationDate' => 1679477781,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

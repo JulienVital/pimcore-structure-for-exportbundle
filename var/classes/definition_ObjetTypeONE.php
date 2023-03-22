@@ -42,10 +42,10 @@
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '1',
-   'name' => 'classOne',
+   'name' => 'ObjetTypeONE',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679443911,
+   'modificationDate' => 1679482831,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -533,6 +533,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'name 1',
+                        'value' => 'value 1',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'name 2',
+                        'value' => 'value 2',
+                      ),
                     ),
                      'width' => '',
                      'defaultValue' => '',
@@ -653,6 +663,26 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'name1',
+                        'value' => 'name1',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'name 2',
+                        'value' => 'name 2',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'name 3',
+                        'value' => 'name 3',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'name 4',
+                        'value' => 'name 4',
+                      ),
                     ),
                      'width' => '',
                      'height' => '',
@@ -827,8 +857,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'regexFlags' => 
                     array (
                     ),
-                     'unique' => NULL,
-                     'showCharCount' => NULL,
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                      'minValue' => NULL,
                      'maxValue' => NULL,
@@ -885,15 +915,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'folder',
+                        'classes' => 'ObjetTypeTWO',
                       ),
                       1 => 
                       array (
-                        'classes' => 'classOne',
+                        'classes' => 'ObjetTypeTHREE',
                       ),
                       2 => 
                       array (
-                        'classes' => 'class2',
+                        'classes' => 'ObjetTypeONE',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -974,7 +1004,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => '',
+                        'classes' => 'ObjetTypeTWO',
+                      ),
+                      1 => 
+                      array (
+                        'classes' => 'ObjetTypeTHREE',
+                      ),
+                      2 => 
+                      array (
+                        'classes' => 'ObjetTypeONE',
                       ),
                     ),
                      'pathFormatterClass' => '',
@@ -982,7 +1020,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'height' => NULL,
                      'maxItems' => NULL,
                      'assetUploadPath' => '',
-                     'objectsAllowed' => false,
+                     'objectsAllowed' => true,
                      'assetsAllowed' => false,
                      'assetTypes' => 
                     array (
@@ -1002,9 +1040,52 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'enableTextSelection' => false,
                      'columns' => 
                     array (
+                      0 => 
+                      array (
+                        'type' => 'number',
+                        'position' => 1,
+                        'key' => 'key1',
+                        'label' => 'label1',
+                        'value' => '',
+                      ),
+                      1 => 
+                      array (
+                        'type' => 'text',
+                        'position' => 2,
+                        'key' => 'key2',
+                        'label' => 'label2',
+                      ),
+                      2 => 
+                      array (
+                        'type' => 'select',
+                        'position' => 3,
+                        'key' => 'key3',
+                        'label' => 'label3',
+                        'value' => '',
+                        'width' => NULL,
+                      ),
+                      3 => 
+                      array (
+                        'type' => 'bool',
+                        'position' => 4,
+                        'key' => 'key4',
+                        'label' => 'label4',
+                      ),
+                      4 => 
+                      array (
+                        'type' => 'columnbool',
+                        'position' => 5,
+                        'key' => 'key5',
+                        'label' => 'label5',
+                      ),
                     ),
                      'columnKeys' => 
                     array (
+                      0 => 'key1',
+                      1 => 'key2',
+                      2 => 'key3',
+                      3 => 'key4',
+                      4 => 'key5',
                     ),
                      'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
                      'optimizedAdminLoading' => false,
@@ -1116,10 +1197,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'classes' => 
                     array (
-                      0 => 
-                      array (
-                        'classes' => '',
-                      ),
                     ),
                      'pathFormatterClass' => '',
                      'width' => '',
@@ -1130,18 +1207,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'assetsAllowed' => false,
                      'assetTypes' => 
                     array (
-                      0 => 
-                      array (
-                        'assetTypes' => '',
-                      ),
                     ),
                      'documentsAllowed' => false,
                      'documentTypes' => 
                     array (
-                      0 => 
-                      array (
-                        'documentTypes' => '',
-                      ),
                     ),
                      'enableTextSelection' => false,
                   )),
@@ -1262,7 +1331,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
-                     'unique' => NULL,
+                     'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'autoConvert' => false,
@@ -1299,12 +1368,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                      'name' => 'localizedfields',
                      'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => NULL,
-                     'noteditable' => NULL,
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
                      'index' => NULL,
                      'locked' => false,
-                     'style' => NULL,
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'fieldtype' => 'localizedfields',
