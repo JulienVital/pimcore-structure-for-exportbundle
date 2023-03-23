@@ -5,10 +5,11 @@
  * Variants: no
  *
  * Fields Summary:
- * - ImageSimple [image]
- * - ExternalImage [externalImage]
- * - ImageGallery [imageGallery]
- * - ImageHotspot [hotspotimage]
+ * - simpleImage [image]
+ * - externalImage [externalImage]
+ * - advancedImage [hotspotimage]
+ * - galleryImage [imageGallery]
+ * - Video [video]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -17,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectImage',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679571176,
+   'modificationDate' => 1679608853,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -67,7 +68,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'ImageSimple',
+             'name' => 'simpleImage',
              'title' => 'Image Simple',
              'tooltip' => '',
              'mandatory' => false,
@@ -91,7 +92,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ExternalImage::__set_state(array(
-             'name' => 'ExternalImage',
+             'name' => 'externalImage',
              'title' => 'External Image',
              'tooltip' => '',
              'mandatory' => false,
@@ -114,36 +115,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'previewHeight' => NULL,
           )),
           2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
-             'name' => 'ImageGallery',
-             'title' => 'Image Gallery',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'imageGallery',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-             'uploadPath' => '',
-             'ratioX' => NULL,
-             'ratioY' => NULL,
-             'predefinedDataTemplates' => '',
-          )),
-          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Hotspotimage::__set_state(array(
-             'name' => 'ImageHotspot',
-             'title' => 'Image Hotspot',
+             'name' => 'advancedImage',
+             'title' => 'Advanced Image',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -176,6 +150,66 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'height' => '',
              'uploadPath' => '',
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+             'name' => 'galleryImage',
+             'title' => 'Gallery Image',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'fieldtype' => 'imageGallery',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'uploadPath' => '',
+             'ratioX' => NULL,
+             'ratioY' => NULL,
+             'predefinedDataTemplates' => '',
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
+             'name' => 'Video',
+             'title' => 'Video',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'fieldtype' => 'video',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'allowedTypes' => 
+            array (
+            ),
+             'supportedTypes' => 
+            array (
+              0 => 'asset',
+              1 => 'youtube',
+              2 => 'vimeo',
+              3 => 'dailymotion',
+            ),
           )),
         ),
          'locked' => false,
