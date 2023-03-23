@@ -1,15 +1,13 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExtractObject;
-use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
 
-class ExtractObjectTest extends KernelTestCase
+class ExtractTextObjectTest extends KernelTestCase
 {
 
     public function testExportClassIsJson(){
-        $object = DataObject::getById(3);
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
         $objectText->setSimpleInput("fixture simple Input");
@@ -20,7 +18,7 @@ class ExtractObjectTest extends KernelTestCase
 
         $value = $extractObject->export($objectText);
 
-        $expect = [
+        $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "properties"=>[
@@ -40,9 +38,9 @@ class ExtractObjectTest extends KernelTestCase
                     "value"=> "<p>lk!</p>"
                 ],
             ]
-        ];
+        ]);
 
-        $this->assertEquals($expect,json_decode(json_encode($value)) );
+        $this->assertEquals($expect,json_encode($value) );
     }
 
 }

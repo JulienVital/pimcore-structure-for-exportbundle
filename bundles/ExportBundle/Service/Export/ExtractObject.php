@@ -19,7 +19,8 @@ Class ExtractObject{
         $fields = $object->getClass()->getFieldDefinitions();
         $properties = [];
         foreach ($fields as $fieldName => $fieldDefinition) {
-        $properties[]=                 [
+        $properties[]=  
+            [
                 "name" =>$fieldName,
                 "type" =>$fieldDefinition->fieldtype,
                 "value"=>$object->getValueForFieldName($fieldName)
