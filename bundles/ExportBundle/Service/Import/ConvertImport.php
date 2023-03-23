@@ -25,7 +25,9 @@ Class ConvertImport{
         $newObject->isPublished(true);
         $newObject->setKey($objectDto->getKey());
         $newObject->setParent($parent);
-
+        if(! $objectDto->getProperties()){
+            return $newObject;
+        }
         foreach ($objectDto->getProperties() as $property) {
 
             $fieldName = "set". ucfirst($property["name"]);
