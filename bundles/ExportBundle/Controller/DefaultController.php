@@ -21,9 +21,11 @@ class DefaultController extends FrontendController
         /**
          * @Class2
          */
+        $object = DataObject::getById(3);
         $object = DataObject::getById(5);
-        
-        $fields = $object->getClass()->getFieldDefinitions();
+        $path = $object->getPath();
+        dump($path);
+        dd($object);
         // dump($fields);
         $newArray = [];
         foreach ($fields as $field => $value) {
