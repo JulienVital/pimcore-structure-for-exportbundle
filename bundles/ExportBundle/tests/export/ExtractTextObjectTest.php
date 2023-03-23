@@ -78,6 +78,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "properties"=>[]
         ]);
 
         $this->assertEquals($expect,json_encode($value) );

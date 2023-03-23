@@ -9,7 +9,7 @@ class ObjectDto implements JsonSerializable{
 
     public string $key;
     
-    public ?array $properties;
+    public array $properties=[];
 
     public string $path;
 
@@ -61,9 +61,9 @@ class ObjectDto implements JsonSerializable{
      *
      * @return array
      */
-    public function getProperties(): ?array
+    public function getProperties():array
     {
-        return $this->properties ?? null;
+        return $this->properties ;
     }
 
     /**

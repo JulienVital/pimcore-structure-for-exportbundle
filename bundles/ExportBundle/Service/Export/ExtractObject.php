@@ -11,10 +11,8 @@ Class ExtractObject{
         $returnValue = new ObjectDto();
         $returnValue->setClassName($object::class);
         $returnValue->setKey($object->getKey());
-
-        if ($properties = $this->getProperties($object) ){
-            $returnValue->setProperties($properties );
-        }
+        $properties = $this->getProperties($object);
+        $returnValue->setProperties($properties );
 
         return $returnValue;
     }
