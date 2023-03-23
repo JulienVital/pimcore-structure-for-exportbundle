@@ -28,7 +28,7 @@ Class ConvertImport{
         if(! $objectDto->getProperties()){
             return $newObject;
         }
-        foreach ($objectDto->getProperties() as $property) {
+        foreach ($objectDto->getProperties()["simple"] as $property) {
 
             $fieldName = "set". ucfirst($property["name"]);
             $newObject->$fieldName($property["value"]);

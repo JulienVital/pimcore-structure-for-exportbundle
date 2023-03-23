@@ -45,7 +45,7 @@ class ImportObjectTextTest extends KernelTestCase
         $objectDto->setKey("KeyName example");
         $objectDto->setPath("/");
         $objectDto->setProperties([
-            "textarea" =>[
+            "simple"=>[            "textarea" =>[
                 "name" => "textarea",
                 "type"=> "textarea",
                 "value"=> "Textarea value \n example"
@@ -59,7 +59,7 @@ class ImportObjectTextTest extends KernelTestCase
                 "name" => "wysiwyg",
                 "type"=> "wysiwyg",
                 "value"=> "<p>lk!</p>"
-            ],
+            ],]
         ]);
         $converter = new ConvertImport();
         $object = $converter->getObject($objectDto );

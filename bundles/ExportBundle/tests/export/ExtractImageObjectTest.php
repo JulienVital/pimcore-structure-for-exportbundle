@@ -20,10 +20,12 @@ class ExtractImageObjectTest extends KernelTestCase
             "className"=>"Pimcore\Model\DataObject\ObjectImage",
             "key"=> "key fixture",
             "properties"=>[
-                "externalImage" =>[
-                    "name" => "externalImage",
-                    "type"=> "externalImage",
-                    "value"=> "http://www.custom-url.com"
+                "simple"=>[
+                    "externalImage" =>[
+                        "name" => "externalImage",
+                        "type"=> "externalImage",
+                        "value"=> "http://www.custom-url.com"
+                        ]
                 ]
             ]
         ]);

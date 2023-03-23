@@ -22,21 +22,23 @@ class ExtractTextObjectTest extends KernelTestCase
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "properties"=>[
-                "textarea" =>[
-                    "name" => "textarea",
-                    "type"=> "textarea",
-                    "value"=> "Textarea value \n example"
-                ],
-                "simpleInput" => [
-                    "name" => "simpleInput",
-                    "type"=> "input",
-                    "value"=> "fixture simple Input"
-                ],
-                "wysiwyg"  => [
-                    "name" => "wysiwyg",
-                    "type"=> "wysiwyg",
-                    "value"=> "<p>lk!</p>"
-                ],
+                "simple"=>[
+                    "textarea" =>[
+                        "name" => "textarea",
+                        "type"=> "textarea",
+                        "value"=> "Textarea value \n example"
+                    ],
+                    "simpleInput" => [
+                        "name" => "simpleInput",
+                        "type"=> "input",
+                        "value"=> "fixture simple Input"
+                    ],
+                    "wysiwyg"  => [
+                        "name" => "wysiwyg",
+                        "type"=> "wysiwyg",
+                        "value"=> "<p>lk!</p>"
+                    ],
+                ]
             ]
         ]);
 
@@ -56,11 +58,12 @@ class ExtractTextObjectTest extends KernelTestCase
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "properties"=>[
-                "textarea" =>[
+                "simple"=>[                
+                    "textarea" =>[
                     "name" => "textarea",
                     "type"=> "textarea",
                     "value"=> "Textarea value \n example"
-                ]
+                ]]
             ]
         ]);
 

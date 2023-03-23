@@ -8,13 +8,12 @@ Class ExtractObject{
 
     public function export(Concrete $object){
 
-        $returnValue = new ObjectDto();
-        $returnValue->setClassName($object::class);
-        $returnValue->setKey($object->getKey());
-        $properties = $this->getProperties($object);
-        $returnValue->setProperties($properties );
+        $objectDto = new ObjectDto();
+        $objectDto->setClassName($object::class);
+        $objectDto->setKey($object->getKey());
+        $objectDto->setProperties($this->getProperties($object) );
 
-        return $returnValue;
+        return $objectDto;
     }
 
     private function getProperties(Concrete $object){
@@ -25,7 +24,8 @@ Class ExtractObject{
             if(!$value = $object->getValueForFieldName($fieldDefinition->name)){
                 continue;
             }
-            $properties[$fieldDefinition->name]= $this->getProperty($fieldDefinition, $value);
+            $property = $this->getProperty($fieldDefinition, $value);
+            $properties[$property["type"]][$fieldDefinition->name]= $property["value"];
         }
 
         return $properties;
@@ -35,16 +35,21 @@ Class ExtractObject{
         switch ($fieldDefinition->fieldtype) {
             case "externalImage":
                 return  [
-                    "name" =>$fieldDefinition->name,
-                    "type" =>$fieldDefinition->fieldtype,
-                    "value"=>$value->getUrl()
-                ];                    
+                    "type"=>"simple",
+                    "value"=>[
+                        "name" =>$fieldDefinition->name,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$value->getUrl()
+                    ]                    
+                    ];
             default:
                 return  [
+                    "type"=>"simple",
+                    "value"=>[
                     "name" =>$fieldDefinition->name,
                     "type" =>$fieldDefinition->fieldtype,
                     "value"=>$value
-                ];
+                ]];
         }
     }
 }
