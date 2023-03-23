@@ -20,30 +20,31 @@ Class ExtractObject{
     private function getProperties(Concrete $object){
         $fields = $object->getClass()->getFieldDefinitions();
         $properties = [];
-        foreach ($fields as $fieldName => $fieldDefinition) {
+        foreach ($fields as $fieldDefinition) {
 
-            if(!$value = $object->getValueForFieldName($fieldName)){
+            if(!$value = $object->getValueForFieldName($fieldDefinition->name)){
                 continue;
             }
-            switch ($fieldDefinition->fieldtype) {
-                case "externalImage":
-                    $properties[$fieldName]=  [
-                        "name" =>$fieldName,
-                        "type" =>$fieldDefinition->fieldtype,
-                        "value"=>$value->getUrl()
-                    ];                    
-                    break;
-                
-                default:
-                    $properties[$fieldName]=  [
-                        "name" =>$fieldName,
-                        "type" =>$fieldDefinition->fieldtype,
-                        "value"=>$value
-                    ];
-                    break;
-            }
+            $properties[$fieldDefinition->name]= $this->getProperty($fieldDefinition, $value);
         }
 
         return $properties;
+    }
+
+    private function getProperty($fieldDefinition, $value){
+        switch ($fieldDefinition->fieldtype) {
+            case "externalImage":
+                return  [
+                    "name" =>$fieldDefinition->name,
+                    "type" =>$fieldDefinition->fieldtype,
+                    "value"=>$value->getUrl()
+                ];                    
+            default:
+                return  [
+                    "name" =>$fieldDefinition->name,
+                    "type" =>$fieldDefinition->fieldtype,
+                    "value"=>$value
+                ];
+        }
     }
 }

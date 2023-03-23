@@ -8,7 +8,7 @@ use Pimcore\Test\KernelTestCase;
 class ExtractImageObjectTest extends KernelTestCase
 {
 
-    public function testExportClassImage(){
+    public function testExportClassExternalImage(){
         $objectImage = new ObjectImage();
         $objectImage->setKey("key fixture");
         $objectImage->setExternalImage(new ExternalImage("http://www.custom-url.com"));
@@ -30,5 +30,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
         $this->assertEquals($expect,json_encode($value) );
     }
+
+    
 
 }
