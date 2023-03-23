@@ -25,11 +25,23 @@ Class ExtractObject{
             if(!$value = $object->getValueForFieldName($fieldName)){
                 continue;
             }
-            $properties[$fieldName]=  [
-                    "name" =>$fieldName,
-                    "type" =>$fieldDefinition->fieldtype,
-                    "value"=>$value
-                ];
+            switch ($fieldDefinition->fieldtype) {
+                case "externalImage":
+                    $properties[$fieldName]=  [
+                        "name" =>$fieldName,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$value->getUrl()
+                    ];                    
+                    break;
+                
+                default:
+                    $properties[$fieldName]=  [
+                        "name" =>$fieldName,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$value
+                    ];
+                    break;
+            }
         }
 
         return $properties;
