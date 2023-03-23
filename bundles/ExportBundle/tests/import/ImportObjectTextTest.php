@@ -1,30 +1,54 @@
 <?php
 
 use Activepublishing\ExportBundle\Classes\ObjectDto;
-use Activepublishing\ExportBundle\Service\Export\ExtractObject;
+use Activepublishing\ExportBundle\Service\Import\ConvertImport;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+
 
 class ImportObjectTextTest extends KernelTestCase
 {
 
     public function testConvertJsonToObjectDto(){
-        $returnValue = new ObjectDto();
-        $returnValue->setClassName("Pimcore\Model\DataObject\ObjectText");
-        $returnValue->setKey("KeyName example");
 
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
+        $objectDto = new ObjectDto();
+        $objectDto->setClassName("Pimcore\Model\DataObject\ObjectText");
+        $objectDto->setKey("KeyName example");
+
         $data = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             ]);
-        $object = $serializer->deserialize($data, ObjectDto::class, 'json');
-            $this->assertEquals($object, $returnValue);
+        $converter = new ConvertImport();
+        $object = $converter->getDto($data, ObjectDto::class );
+        $this->assertEquals($object, $objectDto);
     }
 
+    public function testObjectDtoConvertToConcrete(){
+
+        $objectDto = new ObjectDto();
+        $objectDto->setClassName("Pimcore\Model\DataObject\ObjectText");
+        $objectDto->setKey("KeyName example");
+        $objectDto->setPath("/");
+
+        $converter = new ConvertImport();
+        $object = $converter->getObject($objectDto );
+        $this->assertEquals($object::class,"Pimcore\Model\DataObject\ObjectText" );
+        $this->assertEquals($object->getKey(),"KeyName example" );
+    }
+
+    public function testSaveConcrete(){
+        $objectDto = new ObjectDto();
+        $objectDto->setClassName("Pimcore\Model\DataObject\ObjectText");
+        $objectDto->setKey("KeyName example");
+        $objectDto->setPath("/");
+
+        $converter = new ConvertImport();
+        $object = $converter->getObject($objectDto );
+        $object->save();
+        $this->assertEquals($object, DataObject::getByPath("/KeyName example") );
+        $object->delete();
+    }
+    
 }

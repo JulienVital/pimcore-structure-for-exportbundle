@@ -11,6 +11,8 @@ class ObjectDto implements JsonSerializable{
     
     public array $properties;
 
+    public string $path;
+
     public function jsonSerialize(){
         return $this;
     }
@@ -74,6 +76,40 @@ class ObjectDto implements JsonSerializable{
     public function setProperties(array $properties): self
     {
         $this->properties = $properties;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of key
+     *
+     * @return string
+     */
+    public function getKey(): string
+    {
+        return $this->key;
+    }
+
+    /**
+     * Get the value of path
+     *
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set the value of path
+     *
+     * @param string $path
+     *
+     * @return self
+     */
+    public function setPath(string $path): self
+    {
+        $this->path = $path;
 
         return $this;
     }
