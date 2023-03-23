@@ -2,10 +2,10 @@
 
 namespace Activepublishing\ExportBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -14,15 +14,18 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class ExportExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        // create a YamlFileLoader - this could also be a XmlFileLoader if you want to load XML 
+        $loader = new YamlFileLoader(
+            $container,
+            // looks in src/MyBundle/Resources/config
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        // load services.yaml
         $loader->load('services.yml');
+        
+        // more load() calls as needed...
     }
 }

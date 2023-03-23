@@ -18,13 +18,13 @@ services:
         resource: '../../Command'
         public: true
 
-    Controller\:
+    Activepublishing\ExportBundle\Controller\:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
 
     # auto-register all services as services
-    Service\:
+    Activepublishing\ExportBundle\Service\:
         resource: '../../Service'
         public: true
 

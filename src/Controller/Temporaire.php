@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\ObjectText;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,16 +23,16 @@ class Temporaire extends FrontendController
         /**
          * @Class2
          */
-        $object = DataObject::getById(5);
+        $object = DataObject::getById(4);
         
         $fields = $object->getClass()->getFieldDefinitions();
-        // dump($fields);
+        dump($fields);
         $newArray = [];
         foreach ($fields as $field => $value) {
             $newArray[$field]=  $object->getValueForFieldName($field);
             # code...
         }
-        dd($newArray);
+        dump($newArray);
 
         dd($object->__getRawRelationData());
 
