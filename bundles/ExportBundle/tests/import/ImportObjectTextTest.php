@@ -37,7 +37,34 @@ class ImportObjectTextTest extends KernelTestCase
         $this->assertEquals($object::class,"Pimcore\Model\DataObject\ObjectText" );
         $this->assertEquals($object->getKey(),"KeyName example" );
     }
+    public function testPropertiesConcreteObject(){
 
+        $objectDto = new ObjectDto();
+        $objectDto->setClassName("Pimcore\Model\DataObject\ObjectText");
+        $objectDto->setKey("KeyName example");
+        $objectDto->setPath("/");
+        $objectDto->setProperties([
+            "textarea" =>[
+                "name" => "textarea",
+                "type"=> "textarea",
+                "value"=> "Textarea value \n example"
+            ],
+            "simpleInput" => [
+                "name" => "simpleInput",
+                "type"=> "input",
+                "value"=> "fixture simple Input"
+            ],
+            "wysiwyg"  => [
+                "name" => "wysiwyg",
+                "type"=> "wysiwyg",
+                "value"=> "<p>lk!</p>"
+            ],
+        ]);
+        $converter = new ConvertImport();
+        $object = $converter->getObject($objectDto );
+        $this->assertEquals($object->getValueForFieldName("textarea"),"Textarea value \n example" );
+
+    }
     public function testSaveConcrete(){
         $objectDto = new ObjectDto();
         $objectDto->setClassName("Pimcore\Model\DataObject\ObjectText");
