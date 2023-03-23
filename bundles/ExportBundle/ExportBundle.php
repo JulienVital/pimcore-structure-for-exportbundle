@@ -18,7 +18,7 @@ class ExportBundle extends AbstractPimcoreBundle
     public function getJsPaths()
     {
         return [
-            '/bundles/ExportBundle/js/pimcore/startup.js',
+            // '/bundles/ExportBundle/js/pimcore/startup.js',
 
         ];
     }
