@@ -42,6 +42,7 @@ class ExtractTextObjectTest extends KernelTestCase
 
         $this->assertEquals($expect,json_encode($value) );
     }
+
     public function testExportClassTextOnlyOneField(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
@@ -65,6 +66,7 @@ class ExtractTextObjectTest extends KernelTestCase
 
         $this->assertEquals($expect,json_encode($value) );
     }
+
     public function testExportClassTextWithoutProperties(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");

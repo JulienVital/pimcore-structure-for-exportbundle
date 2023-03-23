@@ -20,24 +20,19 @@ class Temporaire extends FrontendController
     public function defaultAction(Request $request): Response
     {
 
-        $objectText = new ObjectText();
-        $objectText->setKey("KeyName example");
-        $objectText->setSimpleInput("fixture simple Input");
-        $objectText->setWysiwyg("<p>lk!</p>");
-        $objectText->setTextarea("Textarea value \n example");
         /**
          * @Class2
          */
-        $object = DataObject::getById(3);
+        $object = DataObject::getById(4);
         
         $fields = $object->getClass()->getFieldDefinitions();
-        dump($object->getClass());
+        dump($fields);
         $newArray = [];
         foreach ($fields as $field => $value) {
             $newArray[$field]=  $object->getValueForFieldName($field);
             # code...
         }
-        dd($newArray);
+        dump($newArray);
 
         dd($object->__getRawRelationData());
 
