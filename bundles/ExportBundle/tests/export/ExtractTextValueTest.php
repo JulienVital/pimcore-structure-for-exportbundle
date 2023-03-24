@@ -1,10 +1,10 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExportText;
-use PHPUnit\Framework\TestCase;
 use Pimcore\Model\DataObject\ObjectText;
+use Pimcore\Test\KernelTestCase;
 
-class ExtractTextValueTest extends TestCase
+class ExtractTextValueTest extends KernelTestCase
 {
     private $exportText;
 

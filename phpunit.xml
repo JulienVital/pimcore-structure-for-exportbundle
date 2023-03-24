@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" 
+  bootstrap="./tests/bootstrap.php" 
+  backupGlobals="false"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinterForPhpUnit9"
+  >
+
+  <testsuites>
+    <testsuite name="IdmlTests">
+        <directory suffix=".php">bundles/ExportBundle/tests</directory>
+    </testsuite>
+  </testsuites>
+
+    <php>
+        <!-- adjust as needed -->
+
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+        <env name="PIMCORE_PROJECT_ROOT" value="." />
+        <env name="KERNEL_DIR" value="app" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
+    </php>
+
+</phpunit>

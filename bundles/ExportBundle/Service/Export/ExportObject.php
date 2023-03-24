@@ -4,7 +4,7 @@ namespace Activepublishing\ExportBundle\Service\Export;
 use Activepublishing\ExportBundle\Classes\ObjectDto;
 use Pimcore\Model\DataObject\Concrete;
 
-Class ExtractObject{
+Class ExportObject{
 
     public function export(Concrete $object){
 
@@ -40,6 +40,15 @@ Class ExtractObject{
                         "name" =>$fieldDefinition->name,
                         "type" =>$fieldDefinition->fieldtype,
                         "value"=>$value->getUrl()
+                    ]                    
+                    ];
+            case "image":
+                return  [
+                    "type"=>"relation",
+                    "value"=>[
+                        "name" =>$fieldDefinition->name,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$value->getFullPath()
                     ]                    
                     ];
             default:
