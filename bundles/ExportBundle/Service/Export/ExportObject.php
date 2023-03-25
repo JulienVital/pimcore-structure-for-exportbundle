@@ -3,6 +3,7 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\ObjectDto;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 
 Class ExportObject{
@@ -13,18 +14,21 @@ Class ExportObject{
         $this->queue = $queue;
     }
 
-    public function export(Concrete $object){
+    public function export(DataObject $object){
 
         $objectDto = new ObjectDto();
         $objectDto->setClassName($object::class)
             ->setKey($object->getKey())
-            ->setPath($object->getPath())
-            ->setProperties($this->getProperties($object) );
+            ->setPath($object->getPath());
+        if($object::class !== "Pimcore\Model\DataObject\Folder"){
+            $objectDto->setProperties($this->getProperties($object) );
+        }   
 
         return $objectDto;
     }
 
-    private function getProperties(Concrete $object){
+    private function getProperties(DataObject $object){
+
         $fields = $object->getClass()->getFieldDefinitions();
         $properties = [];
         foreach ($fields as $fieldDefinition) {
