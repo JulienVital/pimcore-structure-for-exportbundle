@@ -15,7 +15,9 @@ class ExtractImageObjectTest extends KernelTestCase
     public function testExportClassExternalImage(){
         $objectImage = new ObjectImage();
         $objectImage->setKey("key fixture");
-        $objectImage->setExternalImage(new ExternalImage("http://www.custom-url.com"));
+        $objectImage->setExternalImage(new ExternalImage("http://www.custom-url.com"))
+        ->setPath("/root/");
+
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
 
@@ -24,6 +26,7 @@ class ExtractImageObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectImage",
             "key"=> "key fixture",
+            "path"=>"/root/",
             "properties"=>[
                 "simple"=>[
                     "externalImage" =>[
@@ -42,13 +45,15 @@ class ExtractImageObjectTest extends KernelTestCase
     public function testExportSimpleImage(){
         
         $image = New Image();
-        $image->setFilename("myAsset.png");
-        $image->setPath("/root/CustomPath/");
-        $image->setData("data ...");    
+        $image->setFilename("myAsset.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");    
 
         $objectImage = new ObjectImage();
         $objectImage->setKey("key fixture");
-        $objectImage->setSimpleImage( $image);
+        $objectImage->setSimpleImage( $image)
+        ->setPath("/root/");
+
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
 
@@ -57,6 +62,7 @@ class ExtractImageObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectImage",
             "key"=> "key fixture",
+            "path"=>"/root/",
             "properties"=>[
                 "relation"=>[
                     "simpleImage" =>[
@@ -80,7 +86,9 @@ class ExtractImageObjectTest extends KernelTestCase
 
         $objectImage = new ObjectImage();
         $objectImage->setKey("key fixture");
-        $objectImage->setSimpleImage( $image);
+        $objectImage->setSimpleImage( $image)
+        ->setPath("/root/");
+
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
 

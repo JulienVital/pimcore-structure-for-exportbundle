@@ -11,6 +11,7 @@ class ExtractTextObjectTest extends KernelTestCase
     public function testExportClassText(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
+        $objectText->setPath("/");
         $objectText->setSimpleInput("fixture simple Input");
         $objectText->setWysiwyg("<p>lk!</p>");
         $objectText->setTextarea("Textarea value \n example");
@@ -23,6 +24,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[
                 "simple"=>[
                     "textarea" =>[
@@ -51,6 +53,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
         $objectText->setTextarea("Textarea value \n example");
+        $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
@@ -60,6 +63,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[
                 "simple"=>[                
                     "textarea" =>[
@@ -76,6 +80,7 @@ class ExtractTextObjectTest extends KernelTestCase
     public function testExportClassTextWithoutProperties(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
+        $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
@@ -85,6 +90,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[]
         ]);
 

@@ -9,9 +9,10 @@ class ObjectDto implements JsonSerializable{
 
     public string $key;
     
+    public string $path;
+    
     public array $properties=[];
 
-    public string $path;
 
     public function jsonSerialize(){
         return $this;

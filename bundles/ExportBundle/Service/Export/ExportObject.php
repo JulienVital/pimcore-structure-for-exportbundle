@@ -16,9 +16,10 @@ Class ExportObject{
     public function export(Concrete $object){
 
         $objectDto = new ObjectDto();
-        $objectDto->setClassName($object::class);
-        $objectDto->setKey($object->getKey());
-        $objectDto->setProperties($this->getProperties($object) );
+        $objectDto->setClassName($object::class)
+            ->setKey($object->getKey())
+            ->setPath($object->getPath())
+            ->setProperties($this->getProperties($object) );
 
         return $objectDto;
     }
