@@ -1,14 +1,14 @@
 <?php
 namespace Activepublishing\ExportBundle\Service\Queue;
 
+use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
-use Pimcore\Model\DataObject\AbstractObject;
 
 Class ExportQueue{
 
     private $items = [];
 
-    public function enqueue(AbstractObject $newObject){
+    public function enqueue(DataObject|Image $newObject){
         $this->items[]=$newObject;
     }
 

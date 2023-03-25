@@ -2,9 +2,16 @@
 namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\ObjectDto;
+use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\Concrete;
 
 Class ExportObject{
+
+    private $queue;
+
+    public function __construct(ExportQueue $queue){
+        $this->queue = $queue;
+    }
 
     public function export(Concrete $object){
 
@@ -43,6 +50,7 @@ Class ExportObject{
                     ]                    
                     ];
             case "image":
+                $this->queue->enqueue($value);
                 return  [
                     "type"=>"relation",
                     "value"=>[

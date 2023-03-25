@@ -1,6 +1,7 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
 
@@ -14,7 +15,8 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setWysiwyg("<p>lk!</p>");
         $objectText->setTextarea("Textarea value \n example");
 
-        $extractObject = new ExportObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -50,7 +52,8 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setKey("KeyName example");
         $objectText->setTextarea("Textarea value \n example");
 
-        $extractObject = new ExportObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -74,7 +77,8 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
 
-        $extractObject = new ExportObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
