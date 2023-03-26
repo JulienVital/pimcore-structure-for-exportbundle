@@ -63,7 +63,7 @@ Class ExportObject{
             case "image":
                 $this->queue->enqueue($value);
                 return  [
-                    "type"=>"relation",
+                    "type"=>"asset",
                     "value"=>[
                         "name" =>$fieldDefinition->name,
                         "type" =>$fieldDefinition->fieldtype,

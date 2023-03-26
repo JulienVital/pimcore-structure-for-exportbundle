@@ -67,7 +67,7 @@ class ExtractImageObjectTest extends KernelTestCase
             "key" => "key fixture",
             "path" => "/root/",
             "properties" => [
-                "relation" => [
+                "asset" => [
                     "simpleImage" => [
                         "name" => "simpleImage",
                         "type" => "image",
@@ -150,7 +150,7 @@ class ExtractImageObjectTest extends KernelTestCase
                 "key" => "key object Image",
                 "path" => "/root Folder/sub Folder/",
                 "properties" => [
-                    "relation" => [
+                    "asset" => [
                         "simpleImage" => [
                             "name" => "simpleImage",
                             "type" => "image",
