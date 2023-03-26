@@ -77,16 +77,33 @@ Class ExportObject{
 
     public function exportTree(DataObject $object, $arrayOfNodes = []){
 
-        $arrayOfNodes[] = $this->export($object);
-        if (!$object->getChildren()){
-            return $arrayOfNodes;
-        }
-        $children = $object->getChildren();
-        foreach ($children as $acutalChildren) {
-            # code...
-            $arrayOfNodes  =  $this->exportTree($acutalChildren, $arrayOfNodes);
-        }
+        $arrayOfNodes  =  $this->exploreParent($object, $arrayOfNodes);
+        $arrayOfNodes  =  $this->exploreChildren($object, $arrayOfNodes);
+
 
         return $arrayOfNodes;
     }
+
+    private function exploreChildren(DataObject $object, $arrayOfNodes){
+        $arrayOfNodes[] = $this->export($object);
+        if ($children = $object->getChildren()){
+            foreach ($children as $acutalChildren) {
+                # code...
+                $arrayOfNodes  =  $this->exploreChildren($acutalChildren, $arrayOfNodes);
+            }
+        }
+        return $arrayOfNodes;
+
+    }
+
+    private function exploreParent(DataObject $object, $arrayOfNodes){
+        $parent = $object->getParent();
+        if ($parent){
+            $arrayOfNodes[] = $this->export($parent);
+            $arrayOfNodes  =  $this->exploreParent($parent, $arrayOfNodes);
+        }
+        return $arrayOfNodes;
+
+    }
 }
+

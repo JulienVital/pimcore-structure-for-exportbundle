@@ -98,55 +98,54 @@ class ExtractFolderObjectTest extends KernelTestCase
         $this->assertEquals($expect,json_encode($value) );
     }
 
-    // public function testExportTreeWithSubDirectoryFromChild(){
-    //     $subSubFolder = new Folder();
-    //     $subSubFolder->setKey('sub sub Folder')
-    //         ->setPath('/root Folder/sub Folder/');
-    //     $subSubFolder2 = new Folder();
-    //     $subSubFolder2->setKey('sub sub Folder2')
-    //         ->setPath('/root Folder/sub Folder/');
+    public function testExportTreeWithSubDirectoryFromChild(){
+        $subSubFolder = new Folder();
+        $subSubFolder->setKey('sub sub Folder')
+            ->setPath('/root Folder/sub Folder/');
+        $subSubFolder2 = new Folder();
+        $subSubFolder2->setKey('sub sub Folder2')
+            ->setPath('/root Folder/sub Folder/');
 
-    //     $subFolder = new Folder();
-    //     $subFolder->setKey('sub Folder')
-    //         ->setPath('/root Folder/')
-    //         ->setChildren([$subSubFolder,$subSubFolder2]);
+        $rootFolder = new Folder();
+        $rootFolder->setKey('root Folder')
+            ->setPath('/');
+        $subFolder = new Folder();
+        $subFolder->setKey('sub Folder')
+            ->setPath('/root Folder/')
+            ->setChildren([$subSubFolder,$subSubFolder2])
+            ->setParent($rootFolder);
 
-    //     $rootFolder = new Folder();
-    //     $rootFolder->setKey('root Folder')
-    //         ->setPath('/');
-    //     $rootFolder->setChildren([$subFolder]);
-    //     $exportQueue = new ExportQueue();
-    //     $extractObject = new ExportObject($exportQueue);
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+        $value = $extractObject->exportTree($subFolder);
 
-    //     $value = $extractObject->exportTree($subFolder);
+        $expect = json_encode([
+            [
+                "className"=>"Pimcore\Model\DataObject\Folder",
+                "key"=> "root Folder",
+                "path"=>"/",
+                "properties"=>[]
+            ],
+            [
+            "className"=>"Pimcore\Model\DataObject\Folder",
+            "key"=> "sub Folder",
+            "path"=>"/root Folder/",
+            "properties"=>[]
+            ],
+            [
+                "className"=>"Pimcore\Model\DataObject\Folder",
+                "key"=> "sub sub Folder",
+                "path"=>"/root Folder/sub Folder/",
+                "properties"=>[]
+            ],
+            [
+                "className"=>"Pimcore\Model\DataObject\Folder",
+                "key"=> "sub sub Folder2",
+                "path"=>"/root Folder/sub Folder/",
+                "properties"=>[]
+            ],
+    ]);
 
-    //     $expect = json_encode([
-    //         [
-    //         "className"=>"Pimcore\Model\DataObject\Folder",
-    //         "key"=> "sub Folder",
-    //         "path"=>"/root Folder/",
-    //         "properties"=>[]
-    //         ],
-    //         [
-    //             "className"=>"Pimcore\Model\DataObject\Folder",
-    //             "key"=> "root Folder",
-    //             "path"=>"/",
-    //             "properties"=>[]
-    //         ],
-    //         [
-    //             "className"=>"Pimcore\Model\DataObject\Folder",
-    //             "key"=> "sub sub Folder",
-    //             "path"=>"/root Folder/sub Folder/",
-    //             "properties"=>[]
-    //         ],
-    //         [
-    //             "className"=>"Pimcore\Model\DataObject\Folder",
-    //             "key"=> "sub sub Folder2",
-    //             "path"=>"/root Folder/sub Folder/",
-    //             "properties"=>[]
-    //         ],
-    // ]);
-
-    //     $this->assertEquals($expect,json_encode($value) );
-    // }
+        $this->assertEquals($expect,json_encode($value) );
+    }
 }
