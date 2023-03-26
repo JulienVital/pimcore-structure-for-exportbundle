@@ -70,6 +70,16 @@ Class ExportObject{
                         "value"=>$value->getFullPath()
                     ]                    
                     ];
+            case "hotspotimage":
+                $this->queue->enqueue($value->getImage());
+                return  [
+                    "type"=>"asset",
+                    "value"=>[
+                        "name" =>$fieldDefinition->name,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$value->getImage()->getFullPath()
+                    ]                    
+                    ];
             default:
                 return  [
                     "type"=>"simple",

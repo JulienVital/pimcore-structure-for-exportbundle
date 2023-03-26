@@ -6,6 +6,7 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject\Data\ExternalImage;
+use Pimcore\Model\DataObject\Data\Hotspotimage;
 use Pimcore\Model\DataObject\ObjectImage;
 use Pimcore\Test\KernelTestCase;
 
@@ -191,4 +192,46 @@ class ExtractImageObjectTest extends KernelTestCase
         $this->assertEquals($expect, $value);
     }
 
+    public function testExportAdvancedImageAddInAssetQueue()
+    {
+
+        $image = new Image();
+        $image->setFilename("AssetHostpot.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");
+
+
+        $hotSpot = new Hotspotimage($image);
+
+        $objectImage = new ObjectImage();
+        $objectImage->setKey("key fixture");
+        $objectImage->setAdvancedImage($hotSpot)
+            ->setPath("/root/");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->exportTree($objectImage);
+        $assetList = $extractObject->getAssetsList();
+        $expectAssetList = [
+            "/root/CustomPath/AssetHostpot.png"
+        ];
+
+        $expect = json_encode([[
+            "className" => "Pimcore\Model\DataObject\ObjectImage",
+            "key" => "key fixture",
+            "path" => "/root/",
+            "properties" => [
+                "asset" => [
+                    "advancedImage" => [
+                        "name" => "advancedImage",
+                        "type" => "hotspotimage",
+                        "value" => "/root/CustomPath/AssetHostpot.png"
+                    ]
+                ]
+            ]
+        ]]);
+        $this->assertEquals($expectAssetList, $assetList);
+        $this->assertEquals(json_encode($value), $expect);
+    }
 }
