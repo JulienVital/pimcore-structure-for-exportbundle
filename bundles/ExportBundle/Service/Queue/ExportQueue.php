@@ -16,4 +16,7 @@ Class ExportQueue{
         
         return array_shift($this->items);
     }
+    public function isEmpty():bool{
+        return count($this->items) === 0;
+    }
 }

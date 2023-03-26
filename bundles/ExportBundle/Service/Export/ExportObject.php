@@ -3,12 +3,18 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\ObjectDto;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use PhpParser\Node\Expr\Instanceof_;
+use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 
 Class ExportObject{
 
     private $queue;
+
+    private $assetList =[
+        
+    ];
 
     public function __construct(ExportQueue $queue){
         $this->queue = $queue;
@@ -77,33 +83,48 @@ Class ExportObject{
 
     public function exportTree(DataObject $object, $arrayOfNodes = []){
 
-        $arrayOfNodes  =  $this->exploreParent($object, $arrayOfNodes);
-        $arrayOfNodes  =  $this->exploreChildren($object, $arrayOfNodes);
+        $this->queue->enqueue($object);
+        while (!$this->queue->isEmpty()) {
+            $currentNode= $this->queue->dequeue();
+            if($currentNode instanceof Asset ){
+                $this->assetList[]= $currentNode->getFullPath();
+                continue;
+            }
+
+            $arrayOfNodes  =  $this->exploreParent($currentNode, $arrayOfNodes);
+            $arrayOfNodes  =  $this->exploreChildren($currentNode, $arrayOfNodes);
+        }
 
 
         return $arrayOfNodes;
     }
 
-    private function exploreChildren(DataObject $object, $arrayOfNodes){
+    private function exploreChildren($object, $arrayOfNodes){
         $arrayOfNodes[] = $this->export($object);
-        if ($children = $object->getChildren()){
-            foreach ($children as $acutalChildren) {
-                # code...
-                $arrayOfNodes  =  $this->exploreChildren($acutalChildren, $arrayOfNodes);
-            }
+        if (!$children = $object->getChildren()){
+            return $arrayOfNodes;
+
+        }
+        foreach ($children as $actualChildren) {
+            # code...
+            $arrayOfNodes  =  $this->exploreChildren($actualChildren, $arrayOfNodes);
         }
         return $arrayOfNodes;
 
     }
 
-    private function exploreParent(DataObject $object, $arrayOfNodes){
-        $parent = $object->getParent();
-        if ($parent){
+    private function exploreParent($object, $arrayOfNodes){
+        
+        if ($parent = $object->getParent()){
             $arrayOfNodes[] = $this->export($parent);
             $arrayOfNodes  =  $this->exploreParent($parent, $arrayOfNodes);
         }
         return $arrayOfNodes;
 
+    }
+
+    public function getAssetsList(){
+        return $this->assetList;
     }
 }
 

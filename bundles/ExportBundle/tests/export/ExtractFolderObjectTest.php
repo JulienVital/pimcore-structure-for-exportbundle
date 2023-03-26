@@ -102,13 +102,20 @@ class ExtractFolderObjectTest extends KernelTestCase
         $subSubFolder = new Folder();
         $subSubFolder->setKey('sub sub Folder')
             ->setPath('/root Folder/sub Folder/');
+
         $subSubFolder2 = new Folder();
         $subSubFolder2->setKey('sub sub Folder2')
             ->setPath('/root Folder/sub Folder/');
+        
+        $subFolderignore = new Folder();
+        $subFolderignore->setKey('sub Folder subFolderignore')
+            ->setPath('/root Folder/');
 
         $rootFolder = new Folder();
         $rootFolder->setKey('root Folder')
-            ->setPath('/');
+            ->setPath('/')
+            ->setChildren([$subFolderignore]);
+            
         $subFolder = new Folder();
         $subFolder->setKey('sub Folder')
             ->setPath('/root Folder/')
