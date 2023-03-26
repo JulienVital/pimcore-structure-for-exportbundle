@@ -5,7 +5,6 @@
 /.web-server-pid
 /config/pimcore/parameters.yml
 /build/
-/phpunit.xml
 /public/bundles/
 
 # local config

@@ -1,6 +1,7 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExtractObject;
+use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
 
@@ -10,17 +11,20 @@ class ExtractTextObjectTest extends KernelTestCase
     public function testExportClassText(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
+        $objectText->setPath("/");
         $objectText->setSimpleInput("fixture simple Input");
         $objectText->setWysiwyg("<p>lk!</p>");
         $objectText->setTextarea("Textarea value \n example");
 
-        $extractObject = new ExtractObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[
                 "simple"=>[
                     "textarea" =>[
@@ -49,14 +53,17 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
         $objectText->setTextarea("Textarea value \n example");
+        $objectText->setPath("/");
 
-        $extractObject = new ExtractObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[
                 "simple"=>[                
                     "textarea" =>[
@@ -73,14 +80,17 @@ class ExtractTextObjectTest extends KernelTestCase
     public function testExportClassTextWithoutProperties(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
+        $objectText->setPath("/");
 
-        $extractObject = new ExtractObject();
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
         $expect = json_encode([
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
+            "path"=> "/",
             "properties"=>[]
         ]);
 

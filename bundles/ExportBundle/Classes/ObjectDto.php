@@ -1,17 +1,16 @@
 <?php
 namespace Activepublishing\ExportBundle\Classes;
 
-use JsonSerializable;
-
-class ObjectDto implements JsonSerializable{
+class ObjectDto{
 
     public string $className;
 
     public string $key;
     
+    public string $path;
+    
     public array $properties=[];
 
-    public string $path;
 
     public function jsonSerialize(){
         return $this;
