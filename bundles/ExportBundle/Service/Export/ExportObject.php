@@ -74,4 +74,19 @@ Class ExportObject{
                 ]];
         }
     }
+
+    public function exportTree(DataObject $object, $arrayOfNodes = []){
+
+        $arrayOfNodes[] = $this->export($object);
+        if (!$object->getChildren()){
+            return $arrayOfNodes;
+        }
+        $children = $object->getChildren();
+        foreach ($children as $acutalChildren) {
+            # code...
+            $arrayOfNodes  =  $this->exportTree($acutalChildren, $arrayOfNodes);
+        }
+
+        return $arrayOfNodes;
+    }
 }
