@@ -247,7 +247,7 @@ class ExtractImageObjectTest extends KernelTestCase
         $image2->setFilename("AssetHostpot2.png")
             ->setPath("/root/gallery/")
             ->setData("data ...");
-        $hotSpot2 = new Hotspotimage($image);
+        $hotSpot2 = new Hotspotimage($image2);
 
         $imageGallery = new ImageGallery([$hotSpot, $hotSpot2]);
         $objectImage = new ObjectImage();
@@ -265,22 +265,25 @@ class ExtractImageObjectTest extends KernelTestCase
             "/root/gallery/AssetHostpot2.png"
         ];
 
-        // $expect = json_encode([[
-        //     "className" => "Pimcore\Model\DataObject\ObjectImage",
-        //     "key" => "key fixture",
-        //     "path" => "/root/",
-        //     "properties" => [
-        //         "asset" => [
-        //             "galleryImage" => [
-        //                 "name" => "galleryImage",
-        //                 "type" => "galleryImage",
-        //                 "value" => "/root/CustomPath/AssetHostpot.png"
-        //             ]
-        //         ]
-        //     ]
-        // ]]);
+        $expect = json_encode([[
+            "className" => "Pimcore\Model\DataObject\ObjectImage",
+            "key" => "key fixture",
+            "path" => "/root/",
+            "properties" => [
+                "asset" => [
+                    "galleryImage" => [
+                        "name" => "galleryImage",
+                        "type" => "imageGallery",
+                        "value" => [
+                            "/root/gallery/AssetHostpot.png",
+                            "/root/gallery/AssetHostpot2.png"
+                        ]
+                    ]
+                ]
+            ]
+        ]]);
 
         $this->assertEquals($expectAssetList, $assetList);
-        // $this->assertEquals(json_encode($value), $expect);
+        $this->assertEquals(json_encode($value), $expect);
     }
 }
