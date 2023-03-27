@@ -1,20 +1,20 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
-use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use Pimcore\Model\Asset;
-use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\Asset\Image;
-use Pimcore\Model\DataObject\Data\ExternalImage;
-use Pimcore\Model\DataObject\Data\Hotspotimage;
-use Pimcore\Model\DataObject\ObjectImage;
 use Pimcore\Test\KernelTestCase;
+use Pimcore\Model\DataObject\Folder;
+use Pimcore\Model\DataObject\ObjectImage;
+use Pimcore\Model\DataObject\Data\Hotspotimage;
+use Pimcore\Model\DataObject\Data\ImageGallery;
+use Pimcore\Model\DataObject\Data\ExternalImage;
+use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Export\ExportObject;
 
 class ExtractImageObjectTest extends KernelTestCase
 {
 
 
-    public function testExportClassExternalImage()
+    public function testExportExternalImage()
     {
         $objectImage = new ObjectImage();
         $objectImage->setKey("key fixture");
@@ -119,14 +119,14 @@ class ExtractImageObjectTest extends KernelTestCase
         $rootFolder = new Folder();
         $rootFolder->setKey('root Folder')
             ->setPath('/');
-        
+
         $subFolder = new Folder();
         $subFolder->setKey('sub Folder')
             ->setPath('/root Folder/')
             ->setChildren([$objectImage])
             ->setParent($rootFolder);
 
-    
+
         $exportQueue = new ExportQueue();
         $extractObject = new ExportObject($exportQueue);
 
@@ -159,8 +159,8 @@ class ExtractImageObjectTest extends KernelTestCase
                         ]
                     ]
                 ]
-                        ],
-                        
+            ],
+
         ]);
 
         $this->assertEquals($expect, json_encode($value));
@@ -233,5 +233,54 @@ class ExtractImageObjectTest extends KernelTestCase
         ]]);
         $this->assertEquals($expectAssetList, $assetList);
         $this->assertEquals(json_encode($value), $expect);
+    }
+
+    public function testExportImageGallery()
+    {
+        $image = new Image();
+        $image->setFilename("AssetHostpot.png")
+            ->setPath("/root/gallery/")
+            ->setData("data ...");
+        $hotSpot = new Hotspotimage($image);
+
+        $image2 = new Image();
+        $image2->setFilename("AssetHostpot2.png")
+            ->setPath("/root/gallery/")
+            ->setData("data ...");
+        $hotSpot2 = new Hotspotimage($image);
+
+        $imageGallery = new ImageGallery([$hotSpot, $hotSpot2]);
+        $objectImage = new ObjectImage();
+        $objectImage->setKey("key fixture");
+        $objectImage->setGalleryImage($imageGallery)
+            ->setPath("/root/");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->exportTree($objectImage);
+        $assetList = $extractObject->getAssetsList();
+        $expectAssetList = [
+            "/root/gallery/AssetHostpot.png",
+            "/root/gallery/AssetHostpot2.png"
+        ];
+
+        // $expect = json_encode([[
+        //     "className" => "Pimcore\Model\DataObject\ObjectImage",
+        //     "key" => "key fixture",
+        //     "path" => "/root/",
+        //     "properties" => [
+        //         "asset" => [
+        //             "galleryImage" => [
+        //                 "name" => "galleryImage",
+        //                 "type" => "galleryImage",
+        //                 "value" => "/root/CustomPath/AssetHostpot.png"
+        //             ]
+        //         ]
+        //     ]
+        // ]]);
+
+        $this->assertEquals($expectAssetList, $assetList);
+        // $this->assertEquals(json_encode($value), $expect);
     }
 }

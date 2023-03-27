@@ -13,7 +13,7 @@ Class ExportObject{
     private $queue;
 
     private $assetList =[
-        
+
     ];
 
     public function __construct(ExportQueue $queue){
@@ -28,7 +28,7 @@ Class ExportObject{
             ->setPath($object->getPath());
         if($object::class !== "Pimcore\Model\DataObject\Folder"){
             $objectDto->setProperties($this->getProperties($object) );
-        }   
+        }
 
         return $objectDto;
     }
@@ -51,6 +51,19 @@ Class ExportObject{
 
     private function getProperty($fieldDefinition, $value){
         switch ($fieldDefinition->fieldtype) {
+            case "imageGallery":
+                $newValue=[];
+                foreach ($value as $item) {
+                    $this->queue->enqueue($item->getImage());
+                }
+                return  [
+                    "type"=>"imageGallery",
+                    "value"=>[
+                        "name" =>$fieldDefinition->name,
+                        "type" =>$fieldDefinition->fieldtype,
+                        "value"=>$newValue
+                    ]
+                    ];
             case "externalImage":
                 return  [
                     "type"=>"simple",
@@ -58,7 +71,7 @@ Class ExportObject{
                         "name" =>$fieldDefinition->name,
                         "type" =>$fieldDefinition->fieldtype,
                         "value"=>$value->getUrl()
-                    ]                    
+                    ]
                     ];
             case "image":
                 $this->queue->enqueue($value);
@@ -68,7 +81,7 @@ Class ExportObject{
                         "name" =>$fieldDefinition->name,
                         "type" =>$fieldDefinition->fieldtype,
                         "value"=>$value->getFullPath()
-                    ]                    
+                    ]
                     ];
             case "hotspotimage":
                 $this->queue->enqueue($value->getImage());
@@ -78,7 +91,7 @@ Class ExportObject{
                         "name" =>$fieldDefinition->name,
                         "type" =>$fieldDefinition->fieldtype,
                         "value"=>$value->getImage()->getFullPath()
-                    ]                    
+                    ]
                     ];
             default:
                 return  [
@@ -124,7 +137,7 @@ Class ExportObject{
     }
 
     private function exploreParent($object, $arrayOfNodes){
-        
+
         if ($parent = $object->getParent()){
             $arrayOfNodes[] = $this->export($parent);
             $arrayOfNodes  =  $this->exploreParent($parent, $arrayOfNodes);
