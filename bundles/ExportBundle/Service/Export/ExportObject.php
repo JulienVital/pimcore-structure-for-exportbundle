@@ -41,8 +41,7 @@ class ExportObject
         $fields = $object->getClass()->getFieldDefinitions();
         $properties = [];
         foreach ($fields as $fieldDefinition) {
-
-            if (!$value = $object->getValueForFieldName($fieldDefinition->name)) {
+            if (is_null($value = $object->getValueForFieldName($fieldDefinition->name))) {
                 continue;
             }
             $property = $this->getProperty($fieldDefinition, $value);
