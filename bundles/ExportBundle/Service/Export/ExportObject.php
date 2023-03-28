@@ -54,6 +54,24 @@ class ExportObject
     private function getProperty($fieldDefinition, $value)
     {
         switch ($fieldDefinition->fieldtype) {
+            case "datetime":
+                return  [
+                    "type" => "simple",
+                    "value" => [
+                        "name" => $fieldDefinition->name,
+                        "type" => $fieldDefinition->fieldtype,
+                        "value" => $value->toIso8601String()
+                    ]
+                ];
+            case "date":
+                return  [
+                    "type" => "simple",
+                    "value" => [
+                        "name" => $fieldDefinition->name,
+                        "type" => $fieldDefinition->fieldtype,
+                        "value" => $value->toIso8601String()
+                    ]
+                ];
             case "imageGallery":
                 $newValue = [];
                 foreach ($value as $item) {

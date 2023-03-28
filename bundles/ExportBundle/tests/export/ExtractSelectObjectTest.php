@@ -2,9 +2,7 @@
 
 use Activepublishing\ExportBundle\Service\Export\ExportObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use Pimcore\Model\DataObject;
 use Pimcore\Test\KernelTestCase;
-use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\ObjectSelect;
 
 class ExtractSelectObjectTest extends KernelTestCase
