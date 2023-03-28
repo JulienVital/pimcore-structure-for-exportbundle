@@ -216,5 +216,105 @@ class ExtractSelectObjectTest extends KernelTestCase
         ]);
 
         $this->assertEquals($expect,json_encode($value) );
+
+        $temp = ObjectSelect::getById(183);
+        $temp->setInputMultiSelect(["multi2","multi3"]);
+        $temp->save();
+    }
+
+    public function testExportInputMultiSelect()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        $selectObject->setInputMultiSelect(["multiselect 1","multiselect 2","multiselect 3"]);
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputMultiSelect" =>[
+                        "name" => "InputMultiSelect",
+                        "type"=> "multiselect",
+                        "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+
+    }
+
+    public function testExportInputMultiCountry()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        $selectObject->setInputMultiCountry(["country 1","country 2","country 3"]);
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputMultiCountry" =>[
+                        "name" => "InputMultiCountry",
+                        "type"=> "countrymultiselect",
+                        "value"=> ["country 1","country 2","country 3"]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+
+    }
+
+    public function testExportInputMultiLanguage()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        $selectObject->setInputMultiLanguage(["Lang 1","Lang 2","Lang 3"]);
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputMultiLanguage" =>[
+                        "name" => "InputMultiLanguage",
+                        "type"=> "languagemultiselect",
+                        "value"=> ["Lang 1","Lang 2","Lang 3"]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+
     }
 }
