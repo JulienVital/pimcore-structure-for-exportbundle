@@ -92,4 +92,129 @@ class ExtractSelectObjectTest extends KernelTestCase
 
         $this->assertEquals($expect,json_encode($value) );
     }
+
+    public function testExportInputSelect()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+        $selectObject->setInputSelect("custom select test");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputSelect" =>[
+                        "name" => "InputSelect",
+                        "type"=> "select",
+                        "value"=> "custom select test"
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+    }
+
+    public function testExportInputUser()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        //pimcore save the user id in this field
+        $selectObject->setInputUser("36");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputUser" =>[
+                        "name" => "InputUser",
+                        "type"=> "user",
+                        "value"=> "36"
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+
+    }
+
+    public function testExportInputCountry()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        $selectObject->setInputCountry("FR");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputCountry" =>[
+                        "name" => "InputCountry",
+                        "type"=> "country",
+                        "value"=> "FR"
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+    }
+
+    public function testExportInputLanguage()
+    {
+        $selectObject = new ObjectSelect();
+        $selectObject->setKey("key select Object");
+        $selectObject->setPath("/root/customPath/");
+
+        $selectObject->setInputLanguage("fr_FR");
+
+        $exportQueue = new ExportQueue();
+        $extractObject = new ExportObject($exportQueue);
+
+        $value = $extractObject->export($selectObject);
+
+        $expect = json_encode([
+            "className"=>"Pimcore\Model\DataObject\ObjectSelect",
+            "key"=> "key select Object",
+            "path"=> "/root/customPath/",
+            "properties"=>[
+                "simple"=>[
+                    "InputLanguage" =>[
+                        "name" => "InputLanguage",
+                        "type"=> "language",
+                        "value"=> "fr_FR"
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertEquals($expect,json_encode($value) );
+    }
 }

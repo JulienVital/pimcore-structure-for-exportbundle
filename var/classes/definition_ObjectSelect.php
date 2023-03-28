@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectSelect',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680027510,
+   'modificationDate' => 1680032509,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -134,16 +134,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'options' => 
             array (
-              0 => 
-              array (
-                'key' => 'tempValue',
-                'value' => 'tempValue',
-              ),
-              1 => 
-              array (
-                'key' => 'tempValue36',
-                'value' => 'tempValuetest',
-              ),
             ),
              'width' => '',
              'defaultValue' => '',
