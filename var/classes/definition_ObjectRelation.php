@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectRelation',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680111488,
+   'modificationDate' => 1680208675,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -125,10 +125,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'classes' => 
             array (
-              0 => 
-              array (
-                'classes' => '',
-              ),
             ),
              'pathFormatterClass' => '',
              'width' => '',
@@ -166,10 +162,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'classes' => 
             array (
-              0 => 
-              array (
-                'classes' => '',
-              ),
             ),
              'pathFormatterClass' => '',
              'width' => '',
@@ -180,18 +172,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'assetsAllowed' => true,
              'assetTypes' => 
             array (
-              0 => 
-              array (
-                'assetTypes' => '',
-              ),
             ),
              'documentsAllowed' => true,
              'documentTypes' => 
             array (
-              0 => 
-              array (
-                'documentTypes' => '',
-              ),
             ),
              'enableTextSelection' => false,
              'columns' => 
@@ -415,18 +399,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'assetsAllowed' => true,
              'assetTypes' => 
             array (
-              0 => 
-              array (
-                'assetTypes' => '',
-              ),
             ),
              'documentsAllowed' => true,
              'documentTypes' => 
             array (
-              0 => 
-              array (
-                'documentTypes' => '',
-              ),
             ),
              'enableTextSelection' => false,
           )),

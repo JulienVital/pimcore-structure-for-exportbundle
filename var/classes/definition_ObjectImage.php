@@ -5,8 +5,8 @@
  * Variants: no
  *
  * Fields Summary:
- * - simpleImage [image]
  * - externalImage [externalImage]
+ * - simpleImage [image]
  * - advancedImage [hotspotimage]
  * - galleryImage [imageGallery]
  * - Video [video]
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectImage',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679608853,
+   'modificationDate' => 1680208665,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -67,30 +67,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'simpleImage',
-             'title' => 'Image Simple',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'image',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-             'uploadPath' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ExternalImage::__set_state(array(
              'name' => 'externalImage',
              'title' => 'External Image',
@@ -113,6 +89,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'previewWidth' => NULL,
              'inputWidth' => NULL,
              'previewHeight' => NULL,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+             'name' => 'simpleImage',
+             'title' => 'Image Simple',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'fieldtype' => 'image',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'uploadPath' => '',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Hotspotimage::__set_state(array(

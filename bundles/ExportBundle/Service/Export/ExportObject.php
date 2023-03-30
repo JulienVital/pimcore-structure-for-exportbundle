@@ -54,6 +54,16 @@ class ExportObject
     private function getProperty($fieldDefinition, $value)
     {
         switch ($fieldDefinition->fieldtype) {
+            
+            case "manyToOneRelation":
+                return  [
+                    "type" => "relation",
+                    "value" => [
+                        "name" => $fieldDefinition->name,
+                        "type" => $fieldDefinition->fieldtype,
+                        "value" => $value->getFullPath()
+                    ]
+                ];
             case "datetime":
                 return  [
                     "type" => "simple",
