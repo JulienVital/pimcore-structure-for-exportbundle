@@ -12,6 +12,10 @@ Class ExportQueue{
         $this->items[]=$newObject;
     }
 
+    public function getQueue(){
+        return $this->items;
+    }
+
     public function dequeue(){
         
         return array_shift($this->items);

@@ -54,8 +54,23 @@ class ExportObject
     private function getProperty($fieldDefinition, $value)
     {
         switch ($fieldDefinition->fieldtype) {
-            
+            case "manyToManyRelation":
+                $array = [];
+                foreach ($value as $currentRelation) {
+                    $this->queue->enqueue($currentRelation);
+
+                    $array[]= $currentRelation->getFullPath();
+                }
+                return  [
+                    "type" => "relation",
+                    "value" => [
+                        "name" => $fieldDefinition->name,
+                        "type" => $fieldDefinition->fieldtype,
+                        "value" => $array
+                    ]
+                ];            
             case "manyToOneRelation":
+                $this->queue->enqueue($value);
                 return  [
                     "type" => "relation",
                     "value" => [
