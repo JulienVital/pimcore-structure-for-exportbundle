@@ -188,7 +188,7 @@ class ExportObject
 
     private function exploreChildren($object, $arrayOfNodes)
     {
-        $arrayOfNodes[] = $this->export($object);
+        $arrayOfNodes[$object->getFullPath()] = $this->export($object);
         if (!$children = $object->getChildren()) {
             return $arrayOfNodes;
         }
@@ -203,7 +203,7 @@ class ExportObject
     {
 
         if ($parent = $object->getParent()) {
-            $arrayOfNodes[] = $this->export($parent);
+            $arrayOfNodes[$parent->getFullPath()] = $this->export($parent);
             $arrayOfNodes  =  $this->exploreParent($parent, $arrayOfNodes);
         }
         return $arrayOfNodes;
