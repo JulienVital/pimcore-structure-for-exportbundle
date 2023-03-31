@@ -3,11 +3,10 @@
 namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\ObjectDto;
+use Activepublishing\ExportBundle\Service\Export\Properties\HotSpotImageAdapter;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use PhpParser\Node\Expr\Instanceof_;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
-use Pimcore\Model\DataObject\Concrete;
 
 class ExportObject
 {
@@ -44,14 +43,14 @@ class ExportObject
             if (is_null($value = $object->getValueForFieldName($fieldDefinition->name))) {
                 continue;
             }
-            $property = $this->getProperty($fieldDefinition, $value);
+            $property = $this->getProperty($fieldDefinition, $value, $object);
             $properties[$property["type"]][$fieldDefinition->name] = $property["value"];
         }
 
         return $properties;
     }
 
-    private function getProperty($fieldDefinition, $value)
+    private function getProperty($fieldDefinition, $value, $object)
     {
         switch ($fieldDefinition->fieldtype) {
             case "manyToManyObjectRelation":
@@ -146,14 +145,11 @@ class ExportObject
                     ]
                 ];
             case "hotspotimage":
+                $hotspot = new HotSpotImageAdapter();
                 $this->queue->enqueue($value->getImage());
                 return  [
                     "type" => "asset",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->getImage()->getFullPath()
-                    ]
+                    "value" =>  $hotspot->getValue($object, $fieldDefinition)
                 ];
             default:
                 return  [
