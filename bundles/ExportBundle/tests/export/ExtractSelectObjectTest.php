@@ -215,9 +215,6 @@ class ExtractSelectObjectTest extends KernelTestCase
 
         $this->assertEquals($expect,json_encode($value) );
 
-        $temp = ObjectSelect::getById(183);
-        $temp->setInputMultiSelect(["multi2","multi3"]);
-        $temp->save();
     }
 
     public function testExportInputMultiSelect()
