@@ -12,14 +12,14 @@ class ExploreObject
 
     private $queue;
 
-    private PropertyAdapter $propertyAdapter;
+    private PropertyExtractor $propertyExtractor;
 
     private $assetList = [];
 
     public function __construct(ExportQueue $queue)
     {
         $this->queue = $queue;
-        $this->propertyAdapter = new PropertyAdapter($this->queue);
+        $this->propertyExtractor = new PropertyExtractor($this->queue);
     }
 
     public function export(DataObject $object)
@@ -30,7 +30,7 @@ class ExploreObject
             ->setKey($object->getKey())
             ->setPath($object->getPath());
         if ($object::class !== "Pimcore\Model\DataObject\Folder") {
-            $currentTransferObject->setProperties($this->propertyAdapter->getProperties($object));
+            $currentTransferObject->setProperties($this->propertyExtractor->getProperties($object));
         }
 
         return $currentTransferObject;

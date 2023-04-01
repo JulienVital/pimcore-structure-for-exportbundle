@@ -23,4 +23,28 @@ class Property implements JsonSerializable{
             "value" => $this->value
         ];
     }
+
+    /**
+     * Get the value of value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Get the value of name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the value of type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }

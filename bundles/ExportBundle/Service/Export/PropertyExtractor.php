@@ -2,10 +2,11 @@
 
 namespace Activepublishing\ExportBundle\Service\Export;
 
+use Activepublishing\ExportBundle\Classes\Property;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject;
 
-class PropertyAdapter
+class PropertyExtractor
 {
     private $queue;
 
@@ -29,6 +30,7 @@ class PropertyAdapter
 
         return $properties;
     }
+
     private function getProperty($fieldDefinition, $value, $object)
     {
         switch ($fieldDefinition->fieldtype) {
@@ -41,11 +43,11 @@ class PropertyAdapter
                 }
                 return  [
                     "type" => "relation",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $array
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $array
+                    )
                 ];    
             case "manyToManyRelation":
                 $array = [];
@@ -56,39 +58,39 @@ class PropertyAdapter
                 }
                 return  [
                     "type" => "relation",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $array
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $array
+                    )
                 ];          
             case "manyToOneRelation":
                 $this->queue->enqueue($value);
                 return  [
                     "type" => "relation",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->getFullPath()
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value->getFullPath()
+                    )
                 ];
             case "datetime":
                 return  [
                     "type" => "simple",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->toIso8601String()
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value->toIso8601String()
+                    )
                 ];
             case "date":
                 return  [
                     "type" => "simple",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->toIso8601String()
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value->toIso8601String()
+                    )
                 ];
             case "imageGallery":
                 $newValue = [];
@@ -98,48 +100,49 @@ class PropertyAdapter
                 }
                 return  [
                     "type" => "asset",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $newValue
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $newValue
+                    )
                 ];
             case "externalImage":
                 return  [
                     "type" => "simple",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->getUrl()
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value->getUrl()
+                    )
                 ];
             case "image":
                 $this->queue->enqueue($value);
                 return  [
                     "type" => "asset",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->getFullPath()]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value->getFullPath()
+                        )
                 ];
             case "hotspotimage":
                 $this->queue->enqueue($value->getImage());
                 return  [
                     "type" => "asset",
-                    "value" =>[
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $object->getValueForFieldName($fieldDefinition->name)->getImage()->getFullPath()
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $object->getValueForFieldName($fieldDefinition->name)->getImage()->getFullPath()
+                    )
                 ];
             default:
                 return  [
                     "type" => "simple",
-                    "value" => [
-                        "name" => $fieldDefinition->name,
-                        "type" => $fieldDefinition->fieldtype,
-                        "value" => $value
-                    ]
+                    "value" => new Property(
+                        $fieldDefinition->fieldtype,
+                        $fieldDefinition->name,
+                        $value
+                    )
                 ];
         }
     }
