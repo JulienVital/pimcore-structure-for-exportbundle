@@ -2,6 +2,7 @@
 
 namespace Activepublishing\ExportBundle\Service\Export;
 
+use Activepublishing\ExportBundle\Classes\Properties;
 use Activepublishing\ExportBundle\Classes\Property;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject;
@@ -19,24 +20,23 @@ class PropertyExtractor
     {
 
         $fields = $object->getClass()->getFieldDefinitions();
-        $properties = [];
+        $properties = new Properties();
         foreach ($fields as $fieldDefinition) {
-            if (is_null($value = $object->getValueForFieldName($fieldDefinition->name))) {
+            if (is_null($object->getValueForFieldName($fieldDefinition->name))) {
                 continue;
             }
-            $property = $this->getProperty($fieldDefinition, $value, $object);
-            $properties[$property["type"]][] = $property["value"];
+            $properties->push($this->getProperty($fieldDefinition, $object));
         }
 
         return $properties;
     }
 
-    private function getProperty($fieldDefinition, $value, $object)
+    private function getProperty($fieldDefinition, $object)
     {
         switch ($fieldDefinition->fieldtype) {
             case "manyToManyObjectRelation":
                 $array = [];
-                foreach ($value as $currentRelation) {
+                foreach ($object->getValueForFieldName($fieldDefinition->name) as $currentRelation) {
                     $this->queue->enqueue($currentRelation);
 
                     $array[]= $currentRelation->getFullPath();
@@ -51,7 +51,7 @@ class PropertyExtractor
                 ];    
             case "manyToManyRelation":
                 $array = [];
-                foreach ($value as $currentRelation) {
+                foreach ($object->getValueForFieldName($fieldDefinition->name)as $currentRelation) {
                     $this->queue->enqueue($currentRelation);
 
                     $array[]= $currentRelation->getFullPath();
@@ -65,13 +65,13 @@ class PropertyExtractor
                     )
                 ];          
             case "manyToOneRelation":
-                $this->queue->enqueue($value);
+                $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name));
                 return  [
                     "type" => "relation",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value->getFullPath()
+                        $object->getValueForFieldName($fieldDefinition->name)->getFullPath()
                     )
                 ];
             case "datetime":
@@ -80,7 +80,7 @@ class PropertyExtractor
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value->toIso8601String()
+                        $object->getValueForFieldName($fieldDefinition->name)->toIso8601String()
                     )
                 ];
             case "date":
@@ -89,12 +89,12 @@ class PropertyExtractor
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value->toIso8601String()
+                        $object->getValueForFieldName($fieldDefinition->name)->toIso8601String()
                     )
                 ];
             case "imageGallery":
                 $newValue = [];
-                foreach ($value as $item) {
+                foreach ($object->getValueForFieldName($fieldDefinition->name) as $item) {
                     $this->queue->enqueue($item->getImage());
                     $newValue[] = $item->getImage()->getFullPath();
                 }
@@ -112,21 +112,21 @@ class PropertyExtractor
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value->getUrl()
+                        $object->getValueForFieldName($fieldDefinition->name)->getUrl()
                     )
                 ];
             case "image":
-                $this->queue->enqueue($value);
+                $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name));
                 return  [
                     "type" => "asset",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value->getFullPath()
+                        $object->getValueForFieldName($fieldDefinition->name)->getFullPath()
                         )
                 ];
             case "hotspotimage":
-                $this->queue->enqueue($value->getImage());
+                $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name)->getImage());
                 return  [
                     "type" => "asset",
                     "value" => new Property(
@@ -141,7 +141,7 @@ class PropertyExtractor
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $value
+                        $object->getValueForFieldName($fieldDefinition->name)
                     )
                 ];
         }

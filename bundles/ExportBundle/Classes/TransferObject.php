@@ -9,7 +9,7 @@ class TransferObject{
     
     public string $path;
     
-    public array $properties=[];
+    public $properties;
 
     /**
      * Get the value of className
@@ -67,7 +67,7 @@ class TransferObject{
      *
      * @return self
      */
-    public function setProperties(array $properties): self
+    public function setProperties($properties): self
     {
         $this->properties = $properties;
 

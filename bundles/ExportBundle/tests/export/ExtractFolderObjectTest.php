@@ -22,7 +22,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             "className" => "Pimcore\Model\DataObject\Folder",
             "key" => "folder Key",
             "path" => "/root/",
-            "properties" => []
+            "properties" => null
         ]);
 
         $this->assertEquals($expect, json_encode($value));
@@ -43,7 +43,7 @@ class ExtractFolderObjectTest extends KernelTestCase
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "folder Key",
                 "path" => "/",
-                "properties" => []
+                "properties" => null
             ]
         ]);
 
@@ -78,25 +78,25 @@ class ExtractFolderObjectTest extends KernelTestCase
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "root Folder",
                 "path" => "/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub Folder",
                 "path" => "/root Folder/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder/sub sub Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub sub Folder",
                 "path" => "/root Folder/sub Folder/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder/sub sub Folder2" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub sub Folder2",
                 "path" => "/root Folder/sub Folder/",
-                "properties" => []
+                "properties" => null
             ],
         ]);
 
@@ -137,25 +137,25 @@ class ExtractFolderObjectTest extends KernelTestCase
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "root Folder",
                 "path" => "/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub Folder",
                 "path" => "/root Folder/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder/sub sub Folder" =>  [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub sub Folder",
                 "path" => "/root Folder/sub Folder/",
-                "properties" => []
+                "properties" => null
             ],
             "/root Folder/sub Folder/sub sub Folder2" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub sub Folder2",
                 "path" => "/root Folder/sub Folder/",
-                "properties" => []
+                "properties" => null
             ],
         ]);
 
