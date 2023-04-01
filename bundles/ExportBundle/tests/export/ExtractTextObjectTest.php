@@ -1,6 +1,6 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
@@ -17,7 +17,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setTextarea("Textarea value \n example");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -27,17 +27,17 @@ class ExtractTextObjectTest extends KernelTestCase
             "path"=> "/",
             "properties"=>[
                 "simple"=>[
-                    "textarea" =>[
+                    [
                         "name" => "textarea",
                         "type"=> "textarea",
                         "value"=> "Textarea value \n example"
                     ],
-                    "simpleInput" => [
+                    [
                         "name" => "simpleInput",
                         "type"=> "input",
                         "value"=> "fixture simple Input"
                     ],
-                    "wysiwyg"  => [
+                    [
                         "name" => "wysiwyg",
                         "type"=> "wysiwyg",
                         "value"=> "<p>lk!</p>"
@@ -56,7 +56,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -66,7 +66,7 @@ class ExtractTextObjectTest extends KernelTestCase
             "path"=> "/",
             "properties"=>[
                 "simple"=>[                
-                    "textarea" =>[
+                    [
                     "name" => "textarea",
                     "type"=> "textarea",
                     "value"=> "Textarea value \n example"
@@ -83,7 +83,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectText);
 

@@ -1,7 +1,7 @@
 <?php
 namespace Activepublishing\ExportBundle\Classes;
 
-class ObjectDto{
+class TransferObject{
 
     public string $className;
 
@@ -10,11 +10,6 @@ class ObjectDto{
     public string $path;
     
     public array $properties=[];
-
-
-    public function jsonSerialize(){
-        return $this;
-    }
 
     /**
      * Get the value of className

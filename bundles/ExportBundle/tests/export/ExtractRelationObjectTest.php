@@ -1,6 +1,6 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\ObjectRelation;
@@ -20,7 +20,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToOne($concrete);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectRelation);
         $dequeueValue = $exportQueue->dequeue();
@@ -30,7 +30,7 @@ class ExtractRelationObjectTest extends KernelTestCase
             "path" => "/relations/",
             "properties" => [
                 "relation" => [
-                    "fieldManyToOne" => [
+                    [
                         "name" => "fieldManyToOne",
                         "type" => "manyToOneRelation",
                         "value" => "/root/custom path/concrete element Key"
@@ -59,7 +59,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToMany([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -69,7 +69,7 @@ class ExtractRelationObjectTest extends KernelTestCase
             "path" => "/relations/",
             "properties" => [
                 "relation" => [
-                    "fieldManyToMany" => [
+                    [
                         "name" => "fieldManyToMany",
                         "type" => "manyToManyRelation",
                         "value" => [
@@ -103,7 +103,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToManyObject([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -113,7 +113,7 @@ class ExtractRelationObjectTest extends KernelTestCase
             "path" => "/relations/",
             "properties" => [
                 "relation" => [
-                    "fieldManyToManyObject" => [
+                    [
                         "name" => "fieldManyToManyObject",
                         "type" => "manyToManyObjectRelation",
                         "value" => [

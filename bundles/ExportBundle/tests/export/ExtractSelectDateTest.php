@@ -1,6 +1,6 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Carbon\Carbon;
 use Pimcore\Test\KernelTestCase;
@@ -18,7 +18,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDateTime(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectDate);
 
@@ -28,7 +28,7 @@ class ExtractSelectDateTest extends KernelTestCase
             "path"=> "/dateObject/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputDateTime" =>[
+                    [
                         "name" => "InputDateTime",
                         "type"=> "datetime",
                         "value"=> "2023-03-28T12:34:56+00:00"
@@ -48,7 +48,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDate(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectDate);
 
@@ -58,7 +58,7 @@ class ExtractSelectDateTest extends KernelTestCase
             "path"=> "/dateObject/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputDate" =>[
+                    [
                         "name" => "InputDate",
                         "type"=> "date",
                         "value"=> "2023-03-28T12:34:56+00:00"
@@ -79,7 +79,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setPath("/dateObject/customPath/");
         $objectDate->setInputTime("10:17");
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectDate);
 
@@ -89,7 +89,7 @@ class ExtractSelectDateTest extends KernelTestCase
             "path"=> "/dateObject/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputTime" =>[
+                    [
                         "name" => "InputTime",
                         "type"=> "time",
                         "value"=> "10:17"

@@ -8,7 +8,7 @@ use Pimcore\Model\DataObject\Data\Hotspotimage;
 use Pimcore\Model\DataObject\Data\ImageGallery;
 use Pimcore\Model\DataObject\Data\ExternalImage;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 
 class ExtractImageObjectTest extends KernelTestCase
 {
@@ -22,7 +22,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -32,7 +32,7 @@ class ExtractImageObjectTest extends KernelTestCase
             "path" => "/root/",
             "properties" => [
                 "simple" => [
-                    "externalImage" => [
+                    [
                         "name" => "externalImage",
                         "type" => "externalImage",
                         "value" => "http://www.custom-url.com"
@@ -59,7 +59,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -69,7 +69,7 @@ class ExtractImageObjectTest extends KernelTestCase
             "path" => "/root/",
             "properties" => [
                 "asset" => [
-                    "simpleImage" => [
+                    [
                         "name" => "simpleImage",
                         "type" => "image",
                         "value" => "/root/CustomPath/myAsset.png"
@@ -95,7 +95,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $extractObject->export($objectImage);
         $value = $exportQueue->dequeue();
@@ -128,7 +128,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->exportTree($subFolder);
 
@@ -151,7 +151,7 @@ class ExtractImageObjectTest extends KernelTestCase
                 "path" => "/root Folder/sub Folder/",
                 "properties" => [
                     "asset" => [
-                        "simpleImage" => [
+                        [
                             "name" => "simpleImage",
                             "type" => "image",
                             "value" => "/customAsset/myAsset.png"
@@ -179,7 +179,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $extractObject->exportTree($objectImage);
         $value = $extractObject->getAssetsList();
@@ -208,7 +208,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
@@ -223,7 +223,7 @@ class ExtractImageObjectTest extends KernelTestCase
                 "path" => "/root/",
                 "properties" => [
                     "asset" => [
-                        "advancedImage" => [
+                        [
                             "name" => "advancedImage",
                             "type" => "hotspotimage",
                             "value" => "/root/CustomPath/AssetHostpot.png"
@@ -257,7 +257,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
@@ -273,7 +273,7 @@ class ExtractImageObjectTest extends KernelTestCase
             "path" => "/root/",
             "properties" => [
                 "asset" => [
-                    "galleryImage" => [
+                    [
                         "name" => "galleryImage",
                         "type" => "imageGallery",
                         "value" => [

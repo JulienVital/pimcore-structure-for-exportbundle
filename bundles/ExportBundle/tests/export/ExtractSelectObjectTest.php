@@ -1,6 +1,6 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Test\KernelTestCase;
 use Pimcore\Model\DataObject\ObjectSelect;
@@ -17,7 +17,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(true);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -27,7 +27,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputBooleanSelect" =>[
+                    [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
                         "value"=> true
@@ -47,7 +47,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(false);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -57,7 +57,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputBooleanSelect" =>[
+                    [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
                         "value"=> false
@@ -77,7 +77,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(Null);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -99,7 +99,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputSelect("custom select test");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -109,7 +109,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputSelect" =>[
+                    [
                         "name" => "InputSelect",
                         "type"=> "select",
                         "value"=> "custom select test"
@@ -131,7 +131,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputUser("36");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -141,7 +141,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputUser" =>[
+                    [
                         "name" => "InputUser",
                         "type"=> "user",
                         "value"=> "36"
@@ -163,7 +163,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputCountry("FR");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -173,7 +173,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputCountry" =>[
+                    [
                         "name" => "InputCountry",
                         "type"=> "country",
                         "value"=> "FR"
@@ -194,7 +194,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputLanguage("fr_FR");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -204,7 +204,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputLanguage" =>[
+                    [
                         "name" => "InputLanguage",
                         "type"=> "language",
                         "value"=> "fr_FR"
@@ -226,7 +226,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiSelect(["multiselect 1","multiselect 2","multiselect 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -236,7 +236,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputMultiSelect" =>[
+                    [
                         "name" => "InputMultiSelect",
                         "type"=> "multiselect",
                         "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
@@ -258,7 +258,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiCountry(["country 1","country 2","country 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -268,7 +268,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputMultiCountry" =>[
+                    [
                         "name" => "InputMultiCountry",
                         "type"=> "countrymultiselect",
                         "value"=> ["country 1","country 2","country 3"]
@@ -290,7 +290,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiLanguage(["Lang 1","Lang 2","Lang 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($selectObject);
 
@@ -300,7 +300,7 @@ class ExtractSelectObjectTest extends KernelTestCase
             "path"=> "/root/customPath/",
             "properties"=>[
                 "simple"=>[
-                    "InputMultiLanguage" =>[
+                    [
                         "name" => "InputMultiLanguage",
                         "type"=> "languagemultiselect",
                         "value"=> ["Lang 1","Lang 2","Lang 3"]

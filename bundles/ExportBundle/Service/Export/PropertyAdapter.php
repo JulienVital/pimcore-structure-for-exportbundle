@@ -2,39 +2,19 @@
 
 namespace Activepublishing\ExportBundle\Service\Export;
 
-use Activepublishing\ExportBundle\Classes\ObjectDto;
-use Activepublishing\ExportBundle\Service\Export\Properties\HotSpotImageAdapter;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
 
-class ExportObject
+class PropertyAdapter
 {
-
     private $queue;
-
-    private $assetList = [];
 
     public function __construct(ExportQueue $queue)
     {
         $this->queue = $queue;
     }
 
-    public function export(DataObject $object)
-    {
-
-        $objectDto = new ObjectDto();
-        $objectDto->setClassName($object::class)
-            ->setKey($object->getKey())
-            ->setPath($object->getPath());
-        if ($object::class !== "Pimcore\Model\DataObject\Folder") {
-            $objectDto->setProperties($this->getProperties($object));
-        }
-
-        return $objectDto;
-    }
-
-    private function getProperties(DataObject $object)
+    public function getProperties(DataObject $object)
     {
 
         $fields = $object->getClass()->getFieldDefinitions();
@@ -44,12 +24,11 @@ class ExportObject
                 continue;
             }
             $property = $this->getProperty($fieldDefinition, $value, $object);
-            $properties[$property["type"]][$fieldDefinition->name] = $property["value"];
+            $properties[$property["type"]][] = $property["value"];
         }
 
         return $properties;
     }
-
     private function getProperty($fieldDefinition, $value, $object)
     {
         switch ($fieldDefinition->fieldtype) {
@@ -141,15 +120,17 @@ class ExportObject
                     "value" => [
                         "name" => $fieldDefinition->name,
                         "type" => $fieldDefinition->fieldtype,
-                        "value" => $value->getFullPath()
-                    ]
+                        "value" => $value->getFullPath()]
                 ];
             case "hotspotimage":
-                $hotspot = new HotSpotImageAdapter();
                 $this->queue->enqueue($value->getImage());
                 return  [
                     "type" => "asset",
-                    "value" =>  $hotspot->getValue($object, $fieldDefinition)
+                    "value" =>[
+                        "name" => $fieldDefinition->name,
+                        "type" => $fieldDefinition->fieldtype,
+                        "value" => $object->getValueForFieldName($fieldDefinition->name)->getImage()->getFullPath()
+                    ]
                 ];
             default:
                 return  [
@@ -161,52 +142,5 @@ class ExportObject
                     ]
                 ];
         }
-    }
-
-    public function exportTree(DataObject $object, $arrayOfNodes = [])
-    {
-
-        $this->queue->enqueue($object);
-        while (!$this->queue->isEmpty()) {
-            $currentNode = $this->queue->dequeue();
-            if ($currentNode instanceof Asset) {
-                $this->assetList[] = $currentNode->getFullPath();
-                continue;
-            }
-
-            $arrayOfNodes  =  $this->exploreParent($currentNode, $arrayOfNodes);
-            $arrayOfNodes  =  $this->exploreChildren($currentNode, $arrayOfNodes);
-        }
-
-
-        return $arrayOfNodes;
-    }
-
-    private function exploreChildren($object, $arrayOfNodes)
-    {
-        $arrayOfNodes[$object->getFullPath()] = $this->export($object);
-        if (!$children = $object->getChildren()) {
-            return $arrayOfNodes;
-        }
-        foreach ($children as $actualChildren) {
-            # code...
-            $arrayOfNodes  =  $this->exploreChildren($actualChildren, $arrayOfNodes);
-        }
-        return $arrayOfNodes;
-    }
-
-    private function exploreParent($object, $arrayOfNodes)
-    {
-
-        if ($parent = $object->getParent()) {
-            $arrayOfNodes[$parent->getFullPath()] = $this->export($parent);
-            $arrayOfNodes  =  $this->exploreParent($parent, $arrayOfNodes);
-        }
-        return $arrayOfNodes;
-    }
-
-    public function getAssetsList()
-    {
-        return $this->assetList;
     }
 }

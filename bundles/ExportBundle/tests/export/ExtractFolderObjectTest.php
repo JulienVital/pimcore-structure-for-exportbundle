@@ -1,6 +1,6 @@
 <?php
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Test\KernelTestCase;
@@ -14,7 +14,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/root/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->export($folder);
 
@@ -34,7 +34,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->exportTree($folder);
 
@@ -69,7 +69,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setPath('/');
         $rootFolder->setChildren([$subFolder]);
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
 
         $value = $extractObject->exportTree($rootFolder);
 
@@ -129,7 +129,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setParent($rootFolder);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject($exportQueue);
         $value = $extractObject->exportTree($subFolderStartExplore);
 
         $expect = json_encode([
