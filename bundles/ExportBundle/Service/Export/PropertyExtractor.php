@@ -99,7 +99,7 @@ class PropertyExtractor
                     $newValue[] = $item->getImage()->getFullPath();
                 }
                 return  [
-                    "type" => "asset",
+                    "type" => "simple",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
@@ -118,7 +118,7 @@ class PropertyExtractor
             case "image":
                 $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name));
                 return  [
-                    "type" => "asset",
+                    "type" => "simple",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
@@ -128,7 +128,7 @@ class PropertyExtractor
             case "hotspotimage":
                 $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name)->getImage());
                 return  [
-                    "type" => "asset",
+                    "type" => "simple",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
