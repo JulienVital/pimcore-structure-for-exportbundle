@@ -9,6 +9,10 @@ use Pimcore\Model\DataObject\Data\ImageGallery;
 use Pimcore\Model\DataObject\Data\ExternalImage;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ExternalImageStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\HotSpotImageStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ImageGalleryStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ImageStrategy;
 
 class ExtractImageObjectTest extends KernelTestCase
 {
@@ -22,7 +26,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -59,7 +63,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -95,7 +99,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
 
         $extractObject->export($objectImage);
         $value = $exportQueue->dequeue();
@@ -128,7 +132,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
 
         $value = $extractObject->exportTree($subFolder);
 
@@ -177,7 +181,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
 
         $extractObject->exportTree($objectImage);
         $value = $extractObject->getAssetsList();
@@ -206,7 +210,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
@@ -253,7 +257,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();

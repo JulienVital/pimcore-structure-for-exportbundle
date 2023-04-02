@@ -1,6 +1,7 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
@@ -17,7 +18,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setTextarea("Textarea value \n example");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -54,7 +55,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectText);
 

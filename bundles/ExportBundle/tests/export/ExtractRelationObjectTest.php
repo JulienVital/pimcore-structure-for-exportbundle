@@ -1,6 +1,8 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ManyTomanyStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ManyToOneStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\ObjectRelation;
@@ -21,7 +23,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToOne($concrete);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ManyToOneStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
         $dequeueValue = $exportQueue->dequeue();
@@ -59,7 +61,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToMany([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -101,7 +103,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToManyObject([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
 

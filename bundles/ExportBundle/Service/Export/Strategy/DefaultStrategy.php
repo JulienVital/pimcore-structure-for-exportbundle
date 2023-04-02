@@ -33,9 +33,7 @@ class DefaultStrategy implements FieldStrategyInterface
 
   public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
   {
-    if (!$this->support($fieldDefinition)) {
-      throw new Exception($fieldDefinition->fieldtype, 1);
-    }
+
     return new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
