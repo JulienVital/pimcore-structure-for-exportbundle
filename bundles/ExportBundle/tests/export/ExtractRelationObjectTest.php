@@ -21,7 +21,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToOne($concrete);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
         $dequeueValue = $exportQueue->dequeue();
@@ -59,7 +59,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToMany([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -101,7 +101,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToManyObject([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectRelation);
 

@@ -16,10 +16,10 @@ class DefaultController extends FrontendController
 {
     private $extractObject;
 
-    public function __construct()
+    public function __construct(ExploreObject $exploreObject)
     {
         $exportQueue = new ExportQueue();
-        $this->extractObject = new ExploreObject($exportQueue);
+        $this->extractObject = $exploreObject;
     }
     /**
      * @param Request $request

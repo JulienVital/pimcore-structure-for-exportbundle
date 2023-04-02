@@ -14,7 +14,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/root/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($folder);
 
@@ -34,7 +34,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->exportTree($folder);
 
@@ -69,7 +69,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setPath('/');
         $rootFolder->setChildren([$subFolder]);
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->exportTree($rootFolder);
 
@@ -129,7 +129,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setParent($rootFolder);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
         $value = $extractObject->exportTree($subFolderStartExplore);
 
         $expect = json_encode([

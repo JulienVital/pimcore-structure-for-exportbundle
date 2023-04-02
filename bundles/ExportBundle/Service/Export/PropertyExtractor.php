@@ -19,7 +19,7 @@ class PropertyExtractor
 {
     private $queue;
 
-    public function __construct(ExportQueueInterface  $queue)
+    public function __construct(ExportQueueInterface  $queue, $fieldsStrategy = [])
     {
         $this->queue = $queue;
     }

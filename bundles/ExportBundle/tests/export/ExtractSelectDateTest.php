@@ -18,7 +18,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDateTime(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectDate);
 
@@ -46,7 +46,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDate(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectDate);
 
@@ -75,7 +75,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setPath("/dateObject/customPath/");
         $objectDate->setInputTime("10:17");
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectDate);
 

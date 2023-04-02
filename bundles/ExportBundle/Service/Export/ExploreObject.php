@@ -18,10 +18,11 @@ class ExploreObject
     private $assetList = [];
 
     public function __construct(
+        #[TaggedIterator('field_strategy')] iterable $strategyList,
         ExportQueue $queue)
     {
         $this->queue = $queue;
-        $this->propertyExtractor = new PropertyExtractor($this->queue);
+        $this->propertyExtractor = new PropertyExtractor($this->queue, $strategyList);
     }
 
     public function export(DataObject $object)

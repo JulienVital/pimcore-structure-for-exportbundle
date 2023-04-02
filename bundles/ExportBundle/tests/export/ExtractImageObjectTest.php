@@ -22,7 +22,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -59,7 +59,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectImage);
 
@@ -95,7 +95,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $extractObject->export($objectImage);
         $value = $exportQueue->dequeue();
@@ -128,7 +128,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->exportTree($subFolder);
 
@@ -177,7 +177,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $extractObject->exportTree($objectImage);
         $value = $extractObject->getAssetsList();
@@ -206,7 +206,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
@@ -253,7 +253,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();

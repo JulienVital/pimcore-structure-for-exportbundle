@@ -17,7 +17,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setTextarea("Textarea value \n example");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -54,7 +54,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectText);
 
@@ -79,7 +79,7 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue);
 
         $value = $extractObject->export($objectText);
 
