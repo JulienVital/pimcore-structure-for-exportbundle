@@ -19,8 +19,7 @@ class Properties implements JsonSerializable{
             return ;
         }
 
-        $key = $array["type"];
-        $this->list[] = $array["value"];
+        $this->list[] = $array;
 
     }
 
