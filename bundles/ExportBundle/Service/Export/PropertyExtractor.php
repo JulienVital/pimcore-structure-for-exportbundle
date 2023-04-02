@@ -4,7 +4,9 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\Properties;
 use Activepublishing\ExportBundle\Classes\Property;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ExternalImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\HotSpotImageStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ImageGalleryStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueueInterface;
 use Pimcore\Model\DataObject;
@@ -63,22 +65,11 @@ class PropertyExtractor
                 return $this->getDateProperty($fieldDefinition, $value);
 
             case "imageGallery":
-                $newValue = [];
-                foreach ($value as $item) {
-                    $this->queue->enqueue($item->getImage());
-                    $newValue[] = $item->getImage()->getFullPath();
-                }
-                return   new Property(
-                        $fieldDefinition->fieldtype,
-                        $fieldDefinition->name,
-                        $newValue
-                );
+                $strategy = new ImageGalleryStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             case "externalImage":
-                return  new Property(
-                        $fieldDefinition->fieldtype,
-                        $fieldDefinition->name,
-                        $value->getUrl()
-                );
+                $strategy = new ExternalImageStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             case "image":
                 $strategy = new ImageStrategy();
                 return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
