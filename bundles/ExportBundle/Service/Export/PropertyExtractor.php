@@ -4,10 +4,6 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\Properties;
 use Activepublishing\ExportBundle\Classes\Property;
-use Activepublishing\ExportBundle\Service\Export\Strategy\DateStrategy;
-use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
-use Activepublishing\ExportBundle\Service\Export\Strategy\ManyTomanyStrategy;
-use Activepublishing\ExportBundle\Service\Export\Strategy\ManyToOneStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueueInterface;
 use Exception;
 use Pimcore\Model\DataObject;

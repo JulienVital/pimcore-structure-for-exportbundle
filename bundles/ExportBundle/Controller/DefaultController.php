@@ -3,10 +3,7 @@
 namespace Activepublishing\ExportBundle\Controller;
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
-use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
-use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
 use Pimcore\Controller\FrontendController;
-use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +15,6 @@ class DefaultController extends FrontendController
 
     public function __construct(ExploreObject $exploreObject)
     {
-        $exportQueue = new ExportQueue();
         $this->extractObject = $exploreObject;
     }
     /**
@@ -26,7 +22,7 @@ class DefaultController extends FrontendController
      * @return Response
      */
     #[Route('/admin/exportJsonTree/{object}', name: 'export_path')]
-    public function defaultAction($object)
+    public function defaultAction($object):void
     {
 
         $object =Concrete::getById($object);

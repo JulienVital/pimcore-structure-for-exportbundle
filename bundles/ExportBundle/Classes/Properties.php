@@ -5,7 +5,11 @@ use JsonSerializable;
 
 class Properties implements JsonSerializable{
 
-    private $list = [];
+    /**
+     * 
+     * @var Property[]
+     */
+    private array $list = [];
 
     public function jsonSerialize(): mixed
     {
@@ -13,13 +17,10 @@ class Properties implements JsonSerializable{
         return $this->list;
     }
 
-    public function push(Property $property){
-
-        if(!$property){
-            return ;
-        }
+    public function push(Property $property):self{
 
         $this->list[] = $property;
+        return $this;
 
     }
 

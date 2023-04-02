@@ -4,9 +4,9 @@ namespace Activepublishing\ExportBundle\Classes;
 use JsonSerializable;
 
 class Property implements JsonSerializable{
-    private $type;
-    private $name;
-    private $value;
+    private string $type;
+    private string $name;
+    private mixed $value;
 
     public function __construct($type, $name, $value){
 
