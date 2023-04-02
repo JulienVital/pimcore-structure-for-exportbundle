@@ -4,10 +4,14 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\Properties;
 use Activepublishing\ExportBundle\Classes\Property;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DateStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ExternalImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\HotSpotImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageGalleryStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ManyTomanyStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\ManyToOneStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueueInterface;
 use Pimcore\Model\DataObject;
 
@@ -42,28 +46,23 @@ class PropertyExtractor
     /**
      * @param mixed $fieldDefinition
      * @param DataObject $object
-     * @return array
      */
-    private function getProperty($fieldDefinition, $object)
+    private function getProperty($fieldDefinition, $object):Property
     {
         $value = $object->getValueForFieldName($fieldDefinition->name);
 
         switch ($fieldDefinition->fieldtype) {
             case "manyToManyObjectRelation":
             case "manyToManyRelation":
-                return $this->getRelationProperty($fieldDefinition, $value);
+                $strategy = new ManyTomanyStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             case "manyToOneRelation":
-                $this->queue->enqueue($value);
-                return   new Property(
-                        $fieldDefinition->fieldtype,
-                        $fieldDefinition->name,
-                        $value->getFullPath()
-                    )
-                ;
+                $strategy = new ManyToOneStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             case "datetime":
             case "date":
-                return $this->getDateProperty($fieldDefinition, $value);
-
+                $strategy = new DateStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             case "imageGallery":
                 $strategy = new ImageGalleryStrategy();
                 return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
@@ -77,38 +76,8 @@ class PropertyExtractor
                 $strategy = new HotSpotImageStrategy();
                 return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
             default:
-                return $this->getSimpleProperty($fieldDefinition, $value);
+                $strategy = new DefaultStrategy();
+                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
         }
-    }
-
-    private function getRelationProperty($fieldDefinition, $value)
-    {
-        $array = [];
-        foreach ($value as $currentRelation) {
-            $this->queue->enqueue($currentRelation);
-            $array[] = $currentRelation->getFullPath();
-        }
-        return  new Property(
-                $fieldDefinition->fieldtype,
-                $fieldDefinition->name,
-                $array
-        );
-    }
-    private function getSimpleProperty($fieldDefinition, $value)
-    {
-        return new Property(
-                $fieldDefinition->fieldtype,
-                $fieldDefinition->name,
-                $value
-            );
-    }
-
-    private function getDateProperty($fieldDefinition, $value)
-    {
-        return new Property(
-                $fieldDefinition->fieldtype,
-                $fieldDefinition->name,
-                $value->toIso8601String()
-            );
     }
 }

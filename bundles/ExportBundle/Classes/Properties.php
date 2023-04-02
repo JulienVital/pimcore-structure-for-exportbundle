@@ -13,13 +13,13 @@ class Properties implements JsonSerializable{
         return $this->list;
     }
 
-    public function push($array){
+    public function push(Property $property){
 
-        if(!$array){
+        if(!$property){
             return ;
         }
 
-        $this->list[] = $array;
+        $this->list[] = $property;
 
     }
 
