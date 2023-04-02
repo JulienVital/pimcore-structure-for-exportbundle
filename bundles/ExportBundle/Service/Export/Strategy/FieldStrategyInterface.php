@@ -9,6 +9,6 @@ Interface FieldStrategyInterface{
 
     public function support(Data $fieldDefinitionType): bool;
 
-    public function getPropertyValueAndAddRelationToQueue(Data $fieldDefinition, mixed $value, ExportQueueInterface $queue): Property;
+    public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, ExportQueueInterface $queue): Property;
 
 }

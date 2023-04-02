@@ -15,7 +15,7 @@ class DateStrategy implements FieldStrategyInterface
     return in_array($fieldDefinitionType->fieldtype ,self::TYPE);
   }
 
-  public function getPropertyValueAndAddRelationToQueue(Data $fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
   {
     return new Property(
       $fieldDefinition->fieldtype,

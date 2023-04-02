@@ -55,29 +55,30 @@ class PropertyExtractor
             case "manyToManyObjectRelation":
             case "manyToManyRelation":
                 $strategy = new ManyTomanyStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "manyToOneRelation":
                 $strategy = new ManyToOneStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "datetime":
             case "date":
                 $strategy = new DateStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "imageGallery":
                 $strategy = new ImageGalleryStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "externalImage":
                 $strategy = new ExternalImageStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "image":
                 $strategy = new ImageStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             case "hotspotimage":
                 $strategy = new HotSpotImageStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
             default:
                 $strategy = new DefaultStrategy();
-                return $strategy->getPropertyValueAndAddRelationToQueue($fieldDefinition, $value, $this->queue);
+                break;
         }
+        return $strategy->extractPropertyAndAddRelationsToQueue($fieldDefinition, $value, $this->queue);
     }
 }

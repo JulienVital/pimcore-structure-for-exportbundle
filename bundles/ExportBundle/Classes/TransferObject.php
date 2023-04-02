@@ -35,7 +35,6 @@ class TransferObject{
         return $this;
     }
 
-
     /**
      * Set the value of key
      *

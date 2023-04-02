@@ -6,6 +6,7 @@ use Activepublishing\ExportBundle\Classes\TransferObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class ExploreObject
 {
@@ -16,7 +17,8 @@ class ExploreObject
 
     private $assetList = [];
 
-    public function __construct(ExportQueue $queue)
+    public function __construct(
+        ExportQueue $queue)
     {
         $this->queue = $queue;
         $this->propertyExtractor = new PropertyExtractor($this->queue);

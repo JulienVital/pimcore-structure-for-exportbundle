@@ -15,7 +15,7 @@ class ImageGalleryStrategy implements FieldStrategyInterface
     return $fieldDefinitionType->fieldtype === self::TYPE;
   }
 
-  public function getPropertyValueAndAddRelationToQueue(Data $fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
   {
     $gallery = [];
     foreach ($value as $item) {

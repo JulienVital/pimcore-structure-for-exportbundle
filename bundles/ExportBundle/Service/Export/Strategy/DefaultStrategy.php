@@ -5,6 +5,7 @@ namespace Activepublishing\ExportBundle\Service\Export\Strategy;
 use Activepublishing\ExportBundle\Classes\Property;
 use Exception;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 class DefaultStrategy implements FieldStrategyInterface
 {
@@ -30,7 +31,7 @@ class DefaultStrategy implements FieldStrategyInterface
     return in_array($fieldDefinitionType->fieldtype, self::TYPE);
   }
 
-  public function getPropertyValueAndAddRelationToQueue(Data $fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
   {
     if (!$this->support($fieldDefinition)) {
       throw new Exception($fieldDefinition->fieldtype, 1);
