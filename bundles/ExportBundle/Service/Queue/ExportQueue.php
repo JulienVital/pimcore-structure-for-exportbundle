@@ -4,7 +4,7 @@ namespace Activepublishing\ExportBundle\Service\Queue;
 use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
 
-Class ExportQueue{
+Class ExportQueue implements ExportQueueInterface{
 
     private $items = [];
 

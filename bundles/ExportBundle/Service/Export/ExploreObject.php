@@ -62,7 +62,6 @@ class ExploreObject
             return $arrayOfNodes;
         }
         foreach ($children as $actualChildren) {
-            # code...
             $arrayOfNodes  =  $this->exploreChildren($actualChildren, $arrayOfNodes);
         }
         return $arrayOfNodes;
