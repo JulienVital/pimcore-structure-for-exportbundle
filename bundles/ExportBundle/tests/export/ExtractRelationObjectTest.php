@@ -10,7 +10,8 @@ class ExtractRelationObjectTest extends KernelTestCase
 {
 
 
-    public function testExportManyToOne(){
+    public function testExportManyToOne()
+    {
         $concrete = new Concrete();
         $concrete->setKey("concrete element Key");
         $concrete->setPath("/root/custom path/");
@@ -29,12 +30,10 @@ class ExtractRelationObjectTest extends KernelTestCase
             "key" => "KeyName example",
             "path" => "/relations/",
             "properties" => [
-                "relation" => [
-                    [
-                        "name" => "fieldManyToOne",
-                        "type" => "manyToOneRelation",
-                        "value" => "/root/custom path/concrete element Key"
-                    ]
+                [
+                    "name" => "fieldManyToOne",
+                    "type" => "manyToOneRelation",
+                    "value" => "/root/custom path/concrete element Key"
                 ]
             ]
         ]);
@@ -43,7 +42,8 @@ class ExtractRelationObjectTest extends KernelTestCase
         $this->assertSame($dequeueValue, $concrete);
     }
 
-    public function testExportManyToMany(){
+    public function testExportManyToMany()
+    {
         $concrete1 = new Concrete();
         $concrete1->setKey("concrete element Key1");
         $concrete1->setPath("/root/custom path/");
@@ -68,14 +68,12 @@ class ExtractRelationObjectTest extends KernelTestCase
             "key" => "KeyName example",
             "path" => "/relations/",
             "properties" => [
-                "relation" => [
-                    [
-                        "name" => "fieldManyToMany",
-                        "type" => "manyToManyRelation",
-                        "value" => [
-                            "/root/custom path/concrete element Key1",
-                            "/root/custom path/concrete element Key2"
-                        ]
+                [
+                    "name" => "fieldManyToMany",
+                    "type" => "manyToManyRelation",
+                    "value" => [
+                        "/root/custom path/concrete element Key1",
+                        "/root/custom path/concrete element Key2"
                     ]
                 ]
             ]
@@ -84,10 +82,10 @@ class ExtractRelationObjectTest extends KernelTestCase
         $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
 
         $this->assertSame($exportQueue->getQueue(), [$concrete1, $concrete2]);
-
     }
 
-    public function testExportManyToManyObject(){
+    public function testExportManyToManyObject()
+    {
         $concrete1 = new Concrete();
         $concrete1->setKey("concrete element Key1");
         $concrete1->setPath("/root/custom path/");
@@ -112,14 +110,12 @@ class ExtractRelationObjectTest extends KernelTestCase
             "key" => "KeyName example",
             "path" => "/relations/",
             "properties" => [
-                "relation" => [
-                    [
-                        "name" => "fieldManyToManyObject",
-                        "type" => "manyToManyObjectRelation",
-                        "value" => [
-                            "/root/custom path/concrete element Key1",
-                            "/root/custom path/concrete element Key2"
-                        ]
+                [
+                    "name" => "fieldManyToManyObject",
+                    "type" => "manyToManyObjectRelation",
+                    "value" => [
+                        "/root/custom path/concrete element Key1",
+                        "/root/custom path/concrete element Key2"
                     ]
                 ]
             ]
@@ -128,6 +124,5 @@ class ExtractRelationObjectTest extends KernelTestCase
         $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
 
         $this->assertSame($exportQueue->getQueue(), [$concrete1, $concrete2]);
-
     }
 }

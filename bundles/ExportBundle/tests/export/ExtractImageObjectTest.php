@@ -31,13 +31,13 @@ class ExtractImageObjectTest extends KernelTestCase
             "key" => "key fixture",
             "path" => "/root/",
             "properties" => [
-                "simple" => [
-                    [
-                        "name" => "externalImage",
-                        "type" => "externalImage",
-                        "value" => "http://www.custom-url.com"
-                    ]
+
+                [
+                    "name" => "externalImage",
+                    "type" => "externalImage",
+                    "value" => "http://www.custom-url.com"
                 ]
+
             ]
         ]);
 
@@ -68,13 +68,13 @@ class ExtractImageObjectTest extends KernelTestCase
             "key" => "key fixture",
             "path" => "/root/",
             "properties" => [
-                "simple" => [
-                    [
-                        "name" => "simpleImage",
-                        "type" => "image",
-                        "value" => "/root/CustomPath/myAsset.png"
-                    ]
+
+                [
+                    "name" => "simpleImage",
+                    "type" => "image",
+                    "value" => "/root/CustomPath/myAsset.png"
                 ]
+
             ]
         ]);
 
@@ -150,12 +150,10 @@ class ExtractImageObjectTest extends KernelTestCase
                 "key" => "key object Image",
                 "path" => "/root Folder/sub Folder/",
                 "properties" => [
-                    "simple" => [
-                        [
-                            "name" => "simpleImage",
-                            "type" => "image",
-                            "value" => "/customAsset/myAsset.png"
-                        ]
+                    [
+                        "name" => "simpleImage",
+                        "type" => "image",
+                        "value" => "/customAsset/myAsset.png"
                     ]
                 ]
             ],
@@ -222,12 +220,10 @@ class ExtractImageObjectTest extends KernelTestCase
                 "key" => "key fixture",
                 "path" => "/root/",
                 "properties" => [
-                    "simple" => [
-                        [
-                            "name" => "advancedImage",
-                            "type" => "hotspotimage",
-                            "value" => "/root/CustomPath/AssetHostpot.png"
-                        ]
+                    [
+                        "name" => "advancedImage",
+                        "type" => "hotspotimage",
+                        "value" => "/root/CustomPath/AssetHostpot.png"
                     ]
                 ]
             ]
@@ -267,12 +263,12 @@ class ExtractImageObjectTest extends KernelTestCase
         ];
 
         $expect = json_encode([
-            "/root/key fixture"=>[
-            "className" => "Pimcore\Model\DataObject\ObjectImage",
-            "key" => "key fixture",
-            "path" => "/root/",
-            "properties" => [
-                "simple" => [
+            "/root/key fixture" => [
+                "className" => "Pimcore\Model\DataObject\ObjectImage",
+                "key" => "key fixture",
+                "path" => "/root/",
+                "properties" => [
+
                     [
                         "name" => "galleryImage",
                         "type" => "imageGallery",
@@ -283,7 +279,8 @@ class ExtractImageObjectTest extends KernelTestCase
                     ]
                 ]
             ]
-        ]]);
+
+        ]);
 
         $this->assertEquals($expectAssetList, $assetList);
         $this->assertJsonStringEqualsJsonString(json_encode($value), $expect);

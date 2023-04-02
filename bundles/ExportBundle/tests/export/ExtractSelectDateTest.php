@@ -27,13 +27,11 @@ class ExtractSelectDateTest extends KernelTestCase
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputDateTime",
                         "type"=> "datetime",
                         "value"=> "2023-03-28T12:34:56+00:00"
                     ]
-                ]
             ]
         ]);
 
@@ -57,13 +55,11 @@ class ExtractSelectDateTest extends KernelTestCase
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputDate",
                         "type"=> "date",
                         "value"=> "2023-03-28T12:34:56+00:00"
                     ]
-                ]
             ]
         ]);
 
@@ -88,13 +84,11 @@ class ExtractSelectDateTest extends KernelTestCase
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputTime",
                         "type"=> "time",
                         "value"=> "10:17"
                     ]
-                ]
             ]
         ]);
 

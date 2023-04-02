@@ -26,7 +26,6 @@ class ExtractTextObjectTest extends KernelTestCase
             "key"=> "KeyName example",
             "path"=> "/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "textarea",
                         "type"=> "textarea",
@@ -43,7 +42,6 @@ class ExtractTextObjectTest extends KernelTestCase
                         "value"=> "<p>lk!</p>"
                     ],
                 ]
-            ]
         ]);
 
         $this->assertEquals($expect,json_encode($value) );
@@ -65,13 +63,11 @@ class ExtractTextObjectTest extends KernelTestCase
             "key"=> "KeyName example",
             "path"=> "/",
             "properties"=>[
-                "simple"=>[                
                     [
                     "name" => "textarea",
                     "type"=> "textarea",
                     "value"=> "Textarea value \n example"
                 ]]
-            ]
         ]);
 
         $this->assertEquals($expect,json_encode($value) );

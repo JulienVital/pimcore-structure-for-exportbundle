@@ -42,27 +42,29 @@ class PropertyExtractor
      */
     private function getProperty($fieldDefinition, $object)
     {
+        $value = $object->getValueForFieldName($fieldDefinition->name);
+
         switch ($fieldDefinition->fieldtype) {
             case "manyToManyObjectRelation":
             case "manyToManyRelation":
-                return $this->getRelationProperty($fieldDefinition, $object->getValueForFieldName($fieldDefinition->name));
+                return $this->getRelationProperty($fieldDefinition, $value);
             case "manyToOneRelation":
-                $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name));
+                $this->queue->enqueue($value);
                 return  [
                     "type" => "relation",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $object->getValueForFieldName($fieldDefinition->name)->getFullPath()
+                        $value->getFullPath()
                     )
                 ];
             case "datetime":
             case "date":
-                return $this->getDateProperty($fieldDefinition, $object->getValueForFieldName($fieldDefinition->name));
+                return $this->getDateProperty($fieldDefinition, $value);
 
             case "imageGallery":
                 $newValue = [];
-                foreach ($object->getValueForFieldName($fieldDefinition->name) as $item) {
+                foreach ($value as $item) {
                     $this->queue->enqueue($item->getImage());
                     $newValue[] = $item->getImage()->getFullPath();
                 }
@@ -80,17 +82,17 @@ class PropertyExtractor
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $object->getValueForFieldName($fieldDefinition->name)->getUrl()
+                        $value->getUrl()
                     )
                 ];
             case "image":
-                $this->queue->enqueue($object->getValueForFieldName($fieldDefinition->name));
+                $this->queue->enqueue($value);
                 return  [
                     "type" => "simple",
                     "value" => new Property(
                         $fieldDefinition->fieldtype,
                         $fieldDefinition->name,
-                        $object->getValueForFieldName($fieldDefinition->name)->getFullPath()
+                        $value->getFullPath()
                     )
                 ];
             case "hotspotimage":
@@ -104,7 +106,7 @@ class PropertyExtractor
                     )
                 ];
             default:
-                return $this->getSimpleProperty($fieldDefinition, $object->getValueForFieldName($fieldDefinition->name));
+                return $this->getSimpleProperty($fieldDefinition, $value);
         }
     }
 

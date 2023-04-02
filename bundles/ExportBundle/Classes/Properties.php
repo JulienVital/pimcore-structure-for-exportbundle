@@ -20,7 +20,7 @@ class Properties implements JsonSerializable{
         }
 
         $key = $array["type"];
-        $this->list[$key][] = $array["value"];
+        $this->list[] = $array["value"];
 
     }
 

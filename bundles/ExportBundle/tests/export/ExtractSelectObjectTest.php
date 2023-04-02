@@ -26,13 +26,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
                         "value"=> true
                     ]
-                ]
             ]
         ]);
 
@@ -56,13 +54,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
                         "value"=> false
                     ]
-                ]
             ]
         ]);
 
@@ -108,13 +104,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputSelect",
                         "type"=> "select",
                         "value"=> "custom select test"
                     ]
-                ]
             ]
         ]);
 
@@ -140,13 +134,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputUser",
                         "type"=> "user",
                         "value"=> "36"
                     ]
-                ]
             ]
         ]);
 
@@ -172,13 +164,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputCountry",
                         "type"=> "country",
                         "value"=> "FR"
                     ]
-                ]
             ]
         ]);
 
@@ -203,13 +193,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputLanguage",
                         "type"=> "language",
                         "value"=> "fr_FR"
                     ]
-                ]
             ]
         ]);
 
@@ -235,13 +223,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputMultiSelect",
                         "type"=> "multiselect",
                         "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
                     ]
-                ]
             ]
         ]);
 
@@ -267,13 +253,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputMultiCountry",
                         "type"=> "countrymultiselect",
                         "value"=> ["country 1","country 2","country 3"]
                     ]
-                ]
             ]
         ]);
 
@@ -299,13 +283,11 @@ class ExtractSelectObjectTest extends KernelTestCase
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[
-                "simple"=>[
                     [
                         "name" => "InputMultiLanguage",
                         "type"=> "languagemultiselect",
                         "value"=> ["Lang 1","Lang 2","Lang 3"]
                     ]
-                ]
             ]
         ]);
 
