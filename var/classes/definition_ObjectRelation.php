@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectRelation',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680208675,
+   'modificationDate' => 1680554723,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -162,6 +162,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'classes' => 
             array (
+              0 => 
+              array (
+                'classes' => '',
+              ),
             ),
              'pathFormatterClass' => '',
              'width' => '',
@@ -172,10 +176,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'assetsAllowed' => true,
              'assetTypes' => 
             array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
             ),
              'documentsAllowed' => true,
              'documentTypes' => 
             array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
             ),
              'enableTextSelection' => false,
              'columns' => 
@@ -184,19 +196,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               array (
                 'type' => 'text',
                 'position' => 1,
-                'key' => 'name',
+                'key' => 'key1',
+                'value' => '',
+                'label' => 'label 1',
               ),
               1 => 
               array (
-                'type' => 'text',
+                'type' => 'number',
                 'position' => 2,
-                'key' => 'name',
+                'key' => 'key2',
+                'label' => 'label 2',
+              ),
+              2 => 
+              array (
+                'type' => 'bool',
+                'position' => 3,
+                'key' => 'key3',
+                'label' => 'label 3',
+              ),
+              3 => 
+              array (
+                'type' => 'columnbool',
+                'position' => 4,
+                'key' => 'key4',
+                'label' => 'label 4',
               ),
             ),
              'columnKeys' => 
             array (
-              0 => 'name',
-              1 => 'name',
+              0 => 'key1',
+              1 => 'key2',
+              2 => 'key3',
+              3 => 'key4',
             ),
              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
              'optimizedAdminLoading' => false,
