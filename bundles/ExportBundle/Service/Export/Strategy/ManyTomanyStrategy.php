@@ -15,12 +15,15 @@ class ManyTomanyStrategy implements FieldStrategyInterface
     return in_array($fieldDefinitionType->fieldtype ,self::TYPE);
   }
 
-  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): ?Property
   {
     $array = [];
+    if (count($value)==0){
+      return null;
+    }
     foreach ($value as $currentRelation) {
         $queue->enqueue($currentRelation);
-        $array[] = $currentRelation->getFullPath();
+        $array[] = ["type"=>$currentRelation::class, "path"=>$currentRelation->getFullPath()];
     }
     return  new Property(
             $fieldDefinition->fieldtype,

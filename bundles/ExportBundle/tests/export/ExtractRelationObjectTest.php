@@ -4,6 +4,7 @@ use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ManyTomanyStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ManyToOneStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\ObjectRelation;
@@ -24,7 +25,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToOne($concrete);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ManyToOneStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ManyToOneStrategy()], $exportQueue);
 
         $value = $extractObject->export($objectRelation);
         $dequeueValue = $exportQueue->dequeue();
@@ -51,7 +52,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $concrete1->setKey("concrete element Key1");
         $concrete1->setPath("/root/custom path/");
 
-        $concrete2 = new Concrete();
+        $concrete2 = new Asset();
         $concrete2->setKey("concrete element Key2");
         $concrete2->setPath("/root/custom path/");
 
@@ -62,7 +63,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToMany([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ManyTomanyStrategy()], $exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -75,8 +76,13 @@ class ExtractRelationObjectTest extends KernelTestCase
                     "name" => "fieldManyToMany",
                     "type" => "manyToManyRelation",
                     "value" => [
-                        "/root/custom path/concrete element Key1",
-                        "/root/custom path/concrete element Key2"
+                        [
+                            "type" => "Pimcore\Model\DataObject\Concrete",
+                            "path" => "/root/custom path/concrete element Key1",
+                        ], [
+                            "type" => "Pimcore\Model\Asset",
+                            "path" => "/root/custom path/concrete element Key2"
+                        ]
                     ]
                 ]
             ]
@@ -104,7 +110,7 @@ class ExtractRelationObjectTest extends KernelTestCase
         $objectRelation->setFieldManyToManyObject([$concrete1, $concrete2]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ManyTomanyStrategy()], $exportQueue);
 
         $value = $extractObject->export($objectRelation);
 
@@ -117,8 +123,13 @@ class ExtractRelationObjectTest extends KernelTestCase
                     "name" => "fieldManyToManyObject",
                     "type" => "manyToManyObjectRelation",
                     "value" => [
-                        "/root/custom path/concrete element Key1",
-                        "/root/custom path/concrete element Key2"
+                        [
+                            "type" => "Pimcore\Model\DataObject\Concrete",
+                            "path" => "/root/custom path/concrete element Key1",
+                        ], [
+                            "type" => "Pimcore\Model\DataObject\Concrete",
+                            "path" => "/root/custom path/concrete element Key2"
+                        ]
                     ]
                 ]
             ]
@@ -129,7 +140,8 @@ class ExtractRelationObjectTest extends KernelTestCase
         $this->assertSame($exportQueue->getQueue(), [$concrete1, $concrete2]);
     }
 
-    public function testAdvancedRelation(){
+    public function testAdvancedRelationWIP()
+    {
         $concrete1 = new Concrete();
         $concrete1->setKey("concrete element Key1");
         $concrete1->setPath("/root/custom path/");
@@ -150,15 +162,16 @@ class ExtractRelationObjectTest extends KernelTestCase
                     "type" => "fieldAdvancedManyToMany",
                     "value" => [
                         [
-                            "type"=>"object",
-                            "column"=> ["key1","key2","key3","key4"],
-                            "data"=>["data 1 string","47","1","1"],
-                            "relationPath"=>"/custom Path/object 1"
+                            "type" => "object",
+                            "column" => ["key1", "key2", "key3", "key4"],
+                            "data" => ["data 1 string", "47", "1", "1"],
+                            "relationPath" => "/custom Path/object 1"
                         ]
-                        
+
                     ]
                 ]
             ]
         ]);
+        $this->assertTrue(true);
     }
 }
