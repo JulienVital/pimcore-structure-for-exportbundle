@@ -37,7 +37,10 @@ class ExtractRelationObjectTest extends KernelTestCase
                 [
                     "name" => "fieldManyToOne",
                     "type" => "manyToOneRelation",
-                    "value" => "/root/custom path/concrete element Key"
+                    "value" => [
+                        "type" => "Pimcore\Model\DataObject\Concrete",
+                        "path" => "/root/custom path/concrete element Key",
+                    ]
                 ]
             ]
         ]);
