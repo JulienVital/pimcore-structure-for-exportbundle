@@ -4,6 +4,8 @@ namespace Activepublishing\ExportBundle\Service\Export;
 
 use Activepublishing\ExportBundle\Classes\TransferObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
+use Activepublishing\ExportBundle\Service\Serializer\SerializerInterface;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
@@ -17,9 +19,13 @@ class ExploreObject
 
     private $assetList = [];
 
+    private $objectList = [];
+
+    private SerializerInterface $serializer;
+
     public function __construct(
         #[TaggedIterator('field_strategy')] iterable $strategyList,
-        ExportQueue $queue)
+        ExportQueue $queue, SerializerInterface $serializer)
     {
         $this->queue = $queue;
         $this->propertyExtractor = new PropertyExtractor($this->queue, $strategyList);
@@ -54,6 +60,7 @@ class ExploreObject
             $arrayOfNodes  =  $this->exploreChildren($currentNode, $arrayOfNodes);
         }
 
+        $this->objectList = $arrayOfNodes;
 
         return $arrayOfNodes;
     }

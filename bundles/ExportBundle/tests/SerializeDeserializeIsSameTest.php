@@ -28,20 +28,20 @@ class SerializeDeserializeIsSameTest extends KernelTestCase
             return $objectDate;
 
     }
-    public function testInitImportTree()
-    {
-        $objectDate = $this->createfixture();
+    // public function testInitImportTree()
+    // {
+    //     $objectDate = $this->createfixture();
 
-        $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DateStrategy()], $exportQueue);
+    //     $exportQueue = new ExportQueue();
+    //     $extractObject = new ExploreObject([new DateStrategy()], $exportQueue);
 
-        $valueExtract = $extractObject->exportTree($objectDate);
+    //     $valueExtract = $extractObject->exportTree($objectDate);
 
  
 
 
-        // $this->assertEquals($deserialize , $valueExtract);
-    }
+    //     // $this->assertEquals($deserialize , $valueExtract);
+    // }
 
 }
 

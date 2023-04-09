@@ -2,6 +2,7 @@
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Test\KernelTestCase;
 
@@ -14,7 +15,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/root/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($folder);
 
@@ -34,7 +35,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $folder->setKey('folder Key')
             ->setPath('/');
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($folder);
 
@@ -69,7 +70,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setPath('/');
         $rootFolder->setChildren([$subFolder]);
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($rootFolder);
 
@@ -129,7 +130,7 @@ class ExtractFolderObjectTest extends KernelTestCase
             ->setParent($rootFolder);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue, new JmsSerializer());
         $value = $extractObject->exportTree($subFolderStartExplore);
 
         $expect = json_encode([

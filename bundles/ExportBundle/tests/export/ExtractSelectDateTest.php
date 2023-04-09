@@ -4,6 +4,7 @@ use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DateStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Carbon\Carbon;
 use Pimcore\Test\KernelTestCase;
 use Pimcore\Model\DataObject\ObjectDate;
@@ -20,7 +21,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDateTime(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
 
@@ -48,7 +49,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDate(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
 
@@ -77,7 +78,7 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setPath("/dateObject/customPath/");
         $objectDate->setInputTime("10:17");
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
 

@@ -13,6 +13,7 @@ use Activepublishing\ExportBundle\Service\Export\Strategy\ExternalImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\HotSpotImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageGalleryStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageStrategy;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 
 class ExtractImageObjectTest extends KernelTestCase
 {
@@ -26,7 +27,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectImage);
 
@@ -63,7 +64,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectImage);
 
@@ -99,7 +100,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $extractObject->export($objectImage);
         $value = $exportQueue->dequeue();
@@ -132,7 +133,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($subFolder);
 
@@ -181,7 +182,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $extractObject->exportTree($objectImage);
         $value = $extractObject->getAssetsList();
@@ -210,7 +211,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
@@ -257,7 +258,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
         $assetList = $extractObject->getAssetsList();
