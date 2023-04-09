@@ -8,7 +8,7 @@ class Property implements JsonSerializable{
     private string $name;
     private mixed $value;
 
-    public function __construct($type, $name, $value){
+    public function __construct($type='', $name='', $value=''){
 
         $this->type = $type;
         $this->name = $name;
@@ -24,27 +24,22 @@ class Property implements JsonSerializable{
         ];
     }
 
-    /**
-     * Get the value of value
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
 
     /**
      * Get the value of name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Get the value of type
+     * Set the value of name
      */
-    public function getType()
+    public function setName(string $name): self
     {
-        return $this->type;
+        $this->name = $name;
+
+        return $this;
     }
 }

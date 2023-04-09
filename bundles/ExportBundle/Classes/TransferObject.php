@@ -1,14 +1,20 @@
 <?php
+
 namespace Activepublishing\ExportBundle\Classes;
 
-class TransferObject{
+class TransferObject
+{
 
     public string $className;
 
     public string $key;
-    
+
     public string $path;
-    
+
+    /**
+     * 
+     * @var Activepublishing/ExportBundle/Classes/Property[];
+     */
     public $properties;
 
     /**
@@ -52,11 +58,11 @@ class TransferObject{
     /**
      * Get the value of properties
      *
-     * @return array
+     * @return Property[]
      */
-    public function getProperties():array
+    public function getProperties(): ?array
     {
-        return $this->properties ;
+        return $this->properties;
     }
 
     /**

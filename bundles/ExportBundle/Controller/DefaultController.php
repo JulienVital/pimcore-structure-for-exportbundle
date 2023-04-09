@@ -3,6 +3,7 @@
 namespace Activepublishing\ExportBundle\Controller;
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Import\ImportTree;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject\Concrete;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,5 +41,13 @@ class DefaultController extends FrontendController
         header('Pragma: public');
         echo $str;
 
+    }
+
+    #[Route('/admin/test', name: 'import_path')]
+    public function defaultImport():void
+    {
+
+        $importTree = new ImportTree();
+        $importTree->process();
     }
 }

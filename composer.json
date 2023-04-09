@@ -8,6 +8,7 @@
     "process-timeout": 0
   },
   "require": {
+    "jms/serializer": "^0.16.0",
     "pimcore/pimcore": "^10.5"
   },
   "require-dev": {

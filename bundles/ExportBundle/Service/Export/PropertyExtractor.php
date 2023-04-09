@@ -21,13 +21,13 @@ class PropertyExtractor
 
     /**
      * @param DataObject $object
-     * @return Properties
+     * @return array
      */
-    public function getProperties(DataObject $object): Properties
+    public function getProperties(DataObject $object): array
     {
 
         $fields = $object->getClass()->getFieldDefinitions();
-        $properties = new Properties();
+        $properties = [];
         foreach ($fields as $fieldDefinition) {
             $getter = "get". ucfirst($fieldDefinition->name);
             if (is_null($object->$getter())) {
@@ -36,7 +36,7 @@ class PropertyExtractor
             $property = $this->getProperty($fieldDefinition, $object);
             if($property){
 
-                $properties->push($property);
+                $properties[] =$property;
             }
         }
 
