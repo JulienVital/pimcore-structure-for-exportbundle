@@ -28,10 +28,11 @@ class ExtractImageObjectTest extends KernelTestCase
 
         $exportQueue = new ExportQueue();
         $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue, new JmsSerializer());
-
+        
         $value = $extractObject->export($objectImage);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectImage",
             "key" => "key fixture",
             "path" => "/root/",
@@ -44,9 +45,9 @@ class ExtractImageObjectTest extends KernelTestCase
                 ]
 
             ]
-        ]);
+        ]]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
 
@@ -67,8 +68,9 @@ class ExtractImageObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectImage);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectImage",
             "key" => "key fixture",
             "path" => "/root/",
@@ -81,10 +83,10 @@ class ExtractImageObjectTest extends KernelTestCase
                 ]
 
             ]
-        ]);
+        ]]);
 
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
     public function testAddImageInQueue()
@@ -136,19 +138,18 @@ class ExtractImageObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($subFolder);
+        $value = $extractObject->getJson(); 
 
         $expect = json_encode([
             "/root Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "root Folder",
                 "path" => "/",
-                "properties" => null
             ],
             "/root Folder/sub Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub Folder",
                 "path" => "/root Folder/",
-                "properties" => null
             ],
             "/root Folder/sub Folder/key object Image" => [
                 "className" => "Pimcore\Model\DataObject\ObjectImage",
@@ -165,7 +166,7 @@ class ExtractImageObjectTest extends KernelTestCase
 
         ]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
     public function testExportSimpleImageAddInAssetQueue()
@@ -214,6 +215,8 @@ class ExtractImageObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
+        $value = $extractObject->getJson(); 
+
         $assetList = $extractObject->getAssetsList();
         $expectAssetList = [
             "/root/CustomPath/AssetHostpot.png"
@@ -234,7 +237,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ]
         ]);
         $this->assertEquals($expectAssetList, $assetList);
-        $this->assertJsonStringEqualsJsonString(json_encode($value), $expect);
+        $this->assertJsonStringEqualsJsonString($value, $expect);
     }
 
     public function testExportImageGallery()
@@ -261,6 +264,8 @@ class ExtractImageObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
+        $value = $extractObject->getJson(); 
+
         $assetList = $extractObject->getAssetsList();
         $expectAssetList = [
             "/root/gallery/AssetHostpot.png",
@@ -288,6 +293,6 @@ class ExtractImageObjectTest extends KernelTestCase
         ]);
 
         $this->assertEquals($expectAssetList, $assetList);
-        $this->assertJsonStringEqualsJsonString(json_encode($value), $expect);
+        $this->assertJsonStringEqualsJsonString($value, $expect);
     }
 }

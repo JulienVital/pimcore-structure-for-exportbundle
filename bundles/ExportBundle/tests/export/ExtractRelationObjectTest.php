@@ -29,8 +29,10 @@ class ExtractRelationObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ManyToOneStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectRelation);
+        $value = $extractObject->getJson(); 
+
         $dequeueValue = $exportQueue->dequeue();
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectRelation",
             "key" => "KeyName example",
             "path" => "/relations/",
@@ -44,9 +46,9 @@ class ExtractRelationObjectTest extends KernelTestCase
                     ]
                 ]
             ]
-        ]);
+        ]]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
         $this->assertSame($dequeueValue, $concrete);
     }
 
@@ -70,8 +72,9 @@ class ExtractRelationObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectRelation);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectRelation",
             "key" => "KeyName example",
             "path" => "/relations/",
@@ -90,9 +93,9 @@ class ExtractRelationObjectTest extends KernelTestCase
                     ]
                 ]
             ]
-        ]);
+        ]]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
 
         $this->assertSame($exportQueue->getQueue(), [$concrete1, $concrete2]);
     }
@@ -117,8 +120,9 @@ class ExtractRelationObjectTest extends KernelTestCase
         $extractObject = new ExploreObject([new ManyTomanyStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectRelation);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectRelation",
             "key" => "KeyName example",
             "path" => "/relations/",
@@ -137,9 +141,9 @@ class ExtractRelationObjectTest extends KernelTestCase
                     ]
                 ]
             ]
-        ]);
+        ]]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
 
         $this->assertSame($exportQueue->getQueue(), [$concrete1, $concrete2]);
     }

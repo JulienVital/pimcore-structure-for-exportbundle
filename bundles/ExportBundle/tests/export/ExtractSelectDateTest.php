@@ -24,8 +24,9 @@ class ExtractSelectDateTest extends KernelTestCase
         $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -36,9 +37,9 @@ class ExtractSelectDateTest extends KernelTestCase
                         "value"=> "2023-03-28T12:34:56+00:00"
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
     public function testExportInputDate()
@@ -52,8 +53,9 @@ class ExtractSelectDateTest extends KernelTestCase
         $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -64,9 +66,9 @@ class ExtractSelectDateTest extends KernelTestCase
                         "value"=> "2023-03-28T12:34:56+00:00"
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
 
@@ -81,8 +83,9 @@ class ExtractSelectDateTest extends KernelTestCase
         $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -93,9 +96,9 @@ class ExtractSelectDateTest extends KernelTestCase
                         "value"=> "10:17"
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
 }

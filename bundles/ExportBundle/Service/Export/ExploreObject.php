@@ -29,6 +29,10 @@ class ExploreObject
     {
         $this->queue = $queue;
         $this->propertyExtractor = new PropertyExtractor($this->queue, $strategyList);
+        $this->serializer = $serializer;
+    }
+    public function getJson(){
+        return $this->serializer->serialize($this->objectList);
     }
 
     public function export(DataObject $object)
@@ -41,6 +45,7 @@ class ExploreObject
         if ($object::class !== "Pimcore\Model\DataObject\Folder") {
             $currentTransferObject->setProperties($this->propertyExtractor->getProperties($object));
         }
+        $this->objectList = [$currentTransferObject];
 
         return $currentTransferObject;
     }

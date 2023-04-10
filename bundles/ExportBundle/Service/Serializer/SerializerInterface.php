@@ -7,7 +7,7 @@ interface SerializerInterface{
     /**
      * 
      * @param Serializable 
-     * @return JsonString 
+     * @return string 
      */
     public function serialize($data):string;
 
