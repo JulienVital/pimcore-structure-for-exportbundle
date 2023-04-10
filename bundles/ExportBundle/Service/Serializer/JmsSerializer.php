@@ -1,6 +1,7 @@
 <?php
 namespace Activepublishing\ExportBundle\Service\Serializer;
 
+use Activepublishing\ExportBundle\Classes\TransferObject;
 use JMS\Serializer\SerializerBuilder;
 
 Class JmsSerializer implements SerializerInterface {
@@ -18,6 +19,12 @@ Class JmsSerializer implements SerializerInterface {
     public function serialize($data):string{
         return $this->serializer->serialize($data, 'json');
 
+    }
+
+    public function deSerialize($data){
+        $transferObjects = $this->serializer->deserialize($data, 'array<string, Activepublishing\ExportBundle\Classes\TransferObject>', 'json');
+
+        return $transferObjects;
     }
 
 }

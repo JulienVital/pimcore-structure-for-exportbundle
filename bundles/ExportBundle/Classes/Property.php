@@ -1,7 +1,6 @@
 <?php
 namespace Activepublishing\ExportBundle\Classes;
 use JMS\Serializer\Annotation\Type;
-use JsonSerializable;
 
 class Property {
     /**
@@ -14,7 +13,10 @@ class Property {
      */
     private string $name;
 
-    private mixed $value;
+    /**
+     * @Type("array")
+     */
+    private $value;
 
     public function __construct($type='', $name='', $value=''){
 

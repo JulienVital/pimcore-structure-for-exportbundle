@@ -41,7 +41,7 @@ class ExtractImageObjectTest extends KernelTestCase
                 [
                     "name" => "externalImage",
                     "type" => "externalImage",
-                    "value" => "http://www.custom-url.com"
+                    "value" => ["http://www.custom-url.com"]
                 ]
 
             ]
@@ -79,7 +79,7 @@ class ExtractImageObjectTest extends KernelTestCase
                 [
                     "name" => "simpleImage",
                     "type" => "image",
-                    "value" => "/root/CustomPath/myAsset.png"
+                    "value" => ["/root/CustomPath/myAsset.png"]
                 ]
 
             ]
@@ -159,7 +159,7 @@ class ExtractImageObjectTest extends KernelTestCase
                     [
                         "name" => "simpleImage",
                         "type" => "image",
-                        "value" => "/customAsset/myAsset.png"
+                        "value" => ["/customAsset/myAsset.png"]
                     ]
                 ]
             ],
@@ -231,7 +231,7 @@ class ExtractImageObjectTest extends KernelTestCase
                     [
                         "name" => "advancedImage",
                         "type" => "hotspotimage",
-                        "value" => "/root/CustomPath/AssetHostpot.png"
+                        "value" => ["/root/CustomPath/AssetHostpot.png"]
                     ]
                 ]
             ]

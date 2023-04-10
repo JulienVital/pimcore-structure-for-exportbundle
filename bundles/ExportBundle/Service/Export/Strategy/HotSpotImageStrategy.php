@@ -21,7 +21,7 @@ class HotSpotImageStrategy implements FieldStrategyInterface
     return   new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
-      $value->getImage()->getFullPath()
+      [$value->getImage()->getFullPath()]
     );
   }
 }

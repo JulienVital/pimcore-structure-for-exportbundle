@@ -20,7 +20,7 @@ class ExternalImageStrategy implements FieldStrategyInterface
     return  new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
-      $value->getUrl()
+      [$value->getUrl()]
     );
   }
 }

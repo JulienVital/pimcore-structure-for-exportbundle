@@ -1,0 +1,21 @@
+{
+	"\/Folder root": {
+		"className": "Pimcore\\Model\\DataObject\\Folder",
+		"key": "Folder root",
+		"path": "\/"
+	},
+	"\/Folder root\/key date": {
+		"className": "Pimcore\\Model\\DataObject\\ObjectDate",
+		"key": "key date",
+		"path": "\/Folder root\/",
+		"properties": [{
+			"type": "date",
+			"name": "InputDate",
+			"value": ["2023-03-08T23:00:00+00:00"]
+		}, {
+			"type": "datetime",
+			"name": "InputDateTime",
+			"value": ["2023-03-09T16:30:00+00:00"]
+		}]
+	}
+}

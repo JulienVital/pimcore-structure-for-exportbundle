@@ -37,7 +37,7 @@ class DefaultStrategy implements FieldStrategyInterface
     return new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
-      $value
+      [$value]
     );
   }
 }

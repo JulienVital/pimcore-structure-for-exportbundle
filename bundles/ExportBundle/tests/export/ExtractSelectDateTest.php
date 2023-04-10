@@ -34,7 +34,7 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputDateTime",
                         "type"=> "datetime",
-                        "value"=> "2023-03-28T12:34:56+00:00"
+                        "value"=> ["2023-03-28T12:34:56+00:00"]
                     ]
             ]
         ]]);
@@ -63,7 +63,7 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputDate",
                         "type"=> "date",
-                        "value"=> "2023-03-28T12:34:56+00:00"
+                        "value"=> ["2023-03-28T12:34:56+00:00"]
                     ]
             ]
         ]]);
@@ -93,7 +93,7 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputTime",
                         "type"=> "time",
-                        "value"=> "10:17"
+                        "value"=> ["10:17"]
                     ]
             ]
         ]]);

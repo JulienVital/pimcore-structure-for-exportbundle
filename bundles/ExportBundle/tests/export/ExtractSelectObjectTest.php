@@ -32,7 +32,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
-                        "value"=> true
+                        "value"=> [true]
                     ]
             ]
         ]]);
@@ -61,7 +61,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
-                        "value"=> false
+                        "value"=> [false]
                     ]
             ]
         ]]);
@@ -113,7 +113,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputSelect",
                         "type"=> "select",
-                        "value"=> "custom select test"
+                        "value"=> ["custom select test"]
                     ]
             ]
         ]]);
@@ -144,7 +144,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputUser",
                         "type"=> "user",
-                        "value"=> "36"
+                        "value"=> ["36"]
                     ]
             ]
         ]]);
@@ -175,7 +175,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputCountry",
                         "type"=> "country",
-                        "value"=> "FR"
+                        "value"=> ["FR"]
                     ]
             ]
         ]]);
@@ -205,7 +205,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputLanguage",
                         "type"=> "language",
-                        "value"=> "fr_FR"
+                        "value"=> ["fr_FR"]
                     ]
             ]
         ]]);
@@ -236,7 +236,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiSelect",
                         "type"=> "multiselect",
-                        "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
+                        "value"=> [["multiselect 1","multiselect 2","multiselect 3"]]
                     ]
             ]
         ]]);
@@ -267,7 +267,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiCountry",
                         "type"=> "countrymultiselect",
-                        "value"=> ["country 1","country 2","country 3"]
+                        "value"=> [["country 1","country 2","country 3"]]
                     ]
             ]
         ]]);
@@ -298,7 +298,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiLanguage",
                         "type"=> "languagemultiselect",
-                        "value"=> ["Lang 1","Lang 2","Lang 3"]
+                        "value"=> [["Lang 1","Lang 2","Lang 3"]]
                     ]
             ]
         ]]);

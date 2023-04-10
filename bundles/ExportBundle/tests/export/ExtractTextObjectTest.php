@@ -32,17 +32,17 @@ class ExtractTextObjectTest extends KernelTestCase
                     [
                         "name" => "textarea",
                         "type"=> "textarea",
-                        "value"=> "Textarea value \n example"
+                        "value"=> ["Textarea value \n example"]
                     ],
                     [
                         "name" => "simpleInput",
                         "type"=> "input",
-                        "value"=> "fixture simple Input"
+                        "value"=> ["fixture simple Input"]
                     ],
                     [
                         "name" => "wysiwyg",
                         "type"=> "wysiwyg",
-                        "value"=> "<p>lk!</p>"
+                        "value"=> ["<p>lk!</p>"]
                     ],
                 ]
         ]]);
@@ -70,7 +70,7 @@ class ExtractTextObjectTest extends KernelTestCase
                     [
                     "name" => "textarea",
                     "type"=> "textarea",
-                    "value"=> "Textarea value \n example"
+                    "value"=> ["Textarea value \n example"]
                 ]]
         ]]);
 
