@@ -21,18 +21,23 @@ class PropertyExtractor
 
     /**
      * @param DataObject $object
-     * @return Properties
+     * @return array
      */
-    public function getProperties(DataObject $object): Properties
+    public function getProperties(DataObject $object): array
     {
 
         $fields = $object->getClass()->getFieldDefinitions();
-        $properties = new Properties();
+        $properties = [];
         foreach ($fields as $fieldDefinition) {
-            if (is_null($object->getValueForFieldName($fieldDefinition->name))) {
+            $getter = "get". ucfirst($fieldDefinition->name);
+            if (is_null($object->$getter())) {
                 continue;
             }
-            $properties->push($this->getProperty($fieldDefinition, $object));
+            $property = $this->getProperty($fieldDefinition, $object);
+            if($property){
+
+                $properties[] =$property;
+            }
         }
 
         return $properties;
@@ -42,9 +47,11 @@ class PropertyExtractor
      * @param mixed $fieldDefinition
      * @param DataObject $object
      */
-    private function getProperty($fieldDefinition, $object):Property
+    private function getProperty($fieldDefinition, $object):?Property
     {
-        $value = $object->getValueForFieldName($fieldDefinition->name);
+        $getter = "get". ucfirst($fieldDefinition->name);
+
+        $value = $object->$getter();
 
         foreach ($this->strategy as $strategy) {
             if($strategy->support($fieldDefinition)){
@@ -52,7 +59,7 @@ class PropertyExtractor
 
             }
         }
-        throw new Exception($fieldDefinition->fieldtype, 1);
-
+        // throw new Exception($fieldDefinition->fieldtype ." have no strategy extract", 1);
+        return null;
     }
 }

@@ -1,49 +1,51 @@
 <?php
 namespace Activepublishing\ExportBundle\Classes;
+use JMS\Serializer\Annotation\Type;
 
-use JsonSerializable;
-
-class Property implements JsonSerializable{
+class Property {
+    /**
+     * @Type("string")
+     */
     private string $type;
-    private string $name;
-    private mixed $value;
 
-    public function __construct($type, $name, $value){
+    /**
+     * @Type("string")
+     */
+    private string $name;
+
+    /**
+     * @Type("array")
+     */
+    private $value;
+
+    public function __construct($type='', $name='', $value=''){
 
         $this->type = $type;
         $this->name = $name;
         $this->value = $value;
     }
 
-    public function jsonSerialize(): mixed
+    /**
+     * Get the value of name
+     */
+    public function getName(): string
     {
-        return [
-            "name" => $this->name,
-            "type" => $this->type,
-            "value" => $this->value
-        ];
+        return $this->name;
     }
+
 
     /**
      * Get the value of value
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
 
     /**
-     * Get the value of name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Get the value of type
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

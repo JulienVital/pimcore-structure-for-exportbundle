@@ -20,7 +20,7 @@ class DateStrategy implements FieldStrategyInterface
     return new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
-      $value->toIso8601String()
+      [$value->toIso8601String()]
     );
   }
 }

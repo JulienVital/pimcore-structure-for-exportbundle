@@ -1,0 +1,30 @@
+{
+  "/folder temp/test 1/folder2/folder2_copy": {
+    "className": "Pimcore\\Model\\DataObject\\Folder",
+    "key": "Folder root",
+    "path": "/",
+    "properties": null
+  },
+  "/Folder root/key date": {
+    "className": "Pimcore\\Model\\DataObject\\ObjectDate",
+    "key": "key date",
+    "path": "/",
+    "properties": [
+      {
+        "name": "InputDate",
+        "type": "date",
+        "value": "2023-03-08T23:00:00+00:00"
+      },
+      {
+        "name": "InputDateTime",
+        "type": "datetime",
+        "value": "2023-03-09T16:30:00+00:00"
+      },
+      {
+        "name": "InputTime",
+        "type": "time",
+        "value": "17:00"
+      }
+    ]
+  }
+}

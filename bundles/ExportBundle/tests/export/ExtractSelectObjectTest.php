@@ -3,6 +3,7 @@
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Pimcore\Test\KernelTestCase;
 use Pimcore\Model\DataObject\ObjectSelect;
 
@@ -18,11 +19,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(true);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -30,12 +32,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
-                        "value"=> true
+                        "value"=> [true]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportBooleanSelectFalse()
@@ -46,11 +48,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(false);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -58,12 +61,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputBooleanSelect",
                         "type"=> "booleanSelect",
-                        "value"=> false
+                        "value"=> [false]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportBooleanSelectNull()
@@ -74,18 +77,19 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputBooleanSelect(Null);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
             "properties"=>[]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportInputSelect()
@@ -96,11 +100,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputSelect("custom select test");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -108,12 +113,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputSelect",
                         "type"=> "select",
-                        "value"=> "custom select test"
+                        "value"=> ["custom select test"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportInputUser()
@@ -126,11 +131,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputUser("36");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -138,12 +144,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputUser",
                         "type"=> "user",
-                        "value"=> "36"
+                        "value"=> ["36"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
 
     }
 
@@ -156,11 +162,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputCountry("FR");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -168,12 +175,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputCountry",
                         "type"=> "country",
-                        "value"=> "FR"
+                        "value"=> ["FR"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportInputLanguage()
@@ -185,11 +192,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputLanguage("fr_FR");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -197,12 +205,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputLanguage",
                         "type"=> "language",
-                        "value"=> "fr_FR"
+                        "value"=> ["fr_FR"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
 
     }
 
@@ -215,11 +223,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiSelect(["multiselect 1","multiselect 2","multiselect 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -227,12 +236,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiSelect",
                         "type"=> "multiselect",
-                        "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
+                        "value"=> [["multiselect 1","multiselect 2","multiselect 3"]]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
 
     }
 
@@ -245,11 +254,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiCountry(["country 1","country 2","country 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -257,12 +267,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiCountry",
                         "type"=> "countrymultiselect",
-                        "value"=> ["country 1","country 2","country 3"]
+                        "value"=> [["country 1","country 2","country 3"]]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
 
     }
 
@@ -275,11 +285,12 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiLanguage(["Lang 1","Lang 2","Lang 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectSelect",
             "key"=> "key select Object",
             "path"=> "/root/customPath/",
@@ -287,12 +298,12 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiLanguage",
                         "type"=> "languagemultiselect",
-                        "value"=> ["Lang 1","Lang 2","Lang 3"]
+                        "value"=> [["Lang 1","Lang 2","Lang 3"]]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
 
     }
 }

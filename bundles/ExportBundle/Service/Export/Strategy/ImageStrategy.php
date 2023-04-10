@@ -21,7 +21,7 @@ class ImageStrategy implements FieldStrategyInterface
     return  new Property(
             $fieldDefinition->fieldtype,
             $fieldDefinition->name,
-            $value->getFullPath()
+            [$value->getFullPath()]
         );
   }
 }

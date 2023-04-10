@@ -21,7 +21,10 @@ class ManyToOneStrategy implements FieldStrategyInterface
     return   new Property(
             $fieldDefinition->fieldtype,
             $fieldDefinition->name,
-            $value->getFullPath()
+            [
+              "type"=>$value::class,
+              "path"=>$value->getFullPath()
+            ]
         )
     ;
   }

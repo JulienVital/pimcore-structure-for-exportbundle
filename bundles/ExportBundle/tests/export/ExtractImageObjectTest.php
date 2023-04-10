@@ -13,6 +13,7 @@ use Activepublishing\ExportBundle\Service\Export\Strategy\ExternalImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\HotSpotImageStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageGalleryStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\ImageStrategy;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 
 class ExtractImageObjectTest extends KernelTestCase
 {
@@ -26,11 +27,12 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue);
-
+        $extractObject = new ExploreObject([new ExternalImageStrategy()],$exportQueue, new JmsSerializer());
+        
         $value = $extractObject->export($objectImage);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectImage",
             "key" => "key fixture",
             "path" => "/root/",
@@ -39,13 +41,13 @@ class ExtractImageObjectTest extends KernelTestCase
                 [
                     "name" => "externalImage",
                     "type" => "externalImage",
-                    "value" => "http://www.custom-url.com"
+                    "value" => ["http://www.custom-url.com"]
                 ]
 
             ]
-        ]);
+        ]]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
 
@@ -63,11 +65,12 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectImage);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className" => "Pimcore\Model\DataObject\ObjectImage",
             "key" => "key fixture",
             "path" => "/root/",
@@ -76,14 +79,14 @@ class ExtractImageObjectTest extends KernelTestCase
                 [
                     "name" => "simpleImage",
                     "type" => "image",
-                    "value" => "/root/CustomPath/myAsset.png"
+                    "value" => ["/root/CustomPath/myAsset.png"]
                 ]
 
             ]
-        ]);
+        ]]);
 
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
     public function testAddImageInQueue()
@@ -99,7 +102,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $extractObject->export($objectImage);
         $value = $exportQueue->dequeue();
@@ -132,22 +135,21 @@ class ExtractImageObjectTest extends KernelTestCase
 
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($subFolder);
+        $value = $extractObject->getJson(); 
 
         $expect = json_encode([
             "/root Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "root Folder",
                 "path" => "/",
-                "properties" => null
             ],
             "/root Folder/sub Folder" => [
                 "className" => "Pimcore\Model\DataObject\Folder",
                 "key" => "sub Folder",
                 "path" => "/root Folder/",
-                "properties" => null
             ],
             "/root Folder/sub Folder/key object Image" => [
                 "className" => "Pimcore\Model\DataObject\ObjectImage",
@@ -157,14 +159,14 @@ class ExtractImageObjectTest extends KernelTestCase
                     [
                         "name" => "simpleImage",
                         "type" => "image",
-                        "value" => "/customAsset/myAsset.png"
+                        "value" => ["/customAsset/myAsset.png"]
                     ]
                 ]
             ],
 
         ]);
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($value));
+        $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 
     public function testExportSimpleImageAddInAssetQueue()
@@ -181,7 +183,7 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageStrategy()],$exportQueue, new JmsSerializer());
 
         $extractObject->exportTree($objectImage);
         $value = $extractObject->getAssetsList();
@@ -210,9 +212,11 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new HotSpotImageStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
+        $value = $extractObject->getJson(); 
+
         $assetList = $extractObject->getAssetsList();
         $expectAssetList = [
             "/root/CustomPath/AssetHostpot.png"
@@ -227,13 +231,13 @@ class ExtractImageObjectTest extends KernelTestCase
                     [
                         "name" => "advancedImage",
                         "type" => "hotspotimage",
-                        "value" => "/root/CustomPath/AssetHostpot.png"
+                        "value" => ["/root/CustomPath/AssetHostpot.png"]
                     ]
                 ]
             ]
         ]);
         $this->assertEquals($expectAssetList, $assetList);
-        $this->assertJsonStringEqualsJsonString(json_encode($value), $expect);
+        $this->assertJsonStringEqualsJsonString($value, $expect);
     }
 
     public function testExportImageGallery()
@@ -257,9 +261,11 @@ class ExtractImageObjectTest extends KernelTestCase
             ->setPath("/root/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new ImageGalleryStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->exportTree($objectImage);
+        $value = $extractObject->getJson(); 
+
         $assetList = $extractObject->getAssetsList();
         $expectAssetList = [
             "/root/gallery/AssetHostpot.png",
@@ -287,6 +293,6 @@ class ExtractImageObjectTest extends KernelTestCase
         ]);
 
         $this->assertEquals($expectAssetList, $assetList);
-        $this->assertJsonStringEqualsJsonString(json_encode($value), $expect);
+        $this->assertJsonStringEqualsJsonString($value, $expect);
     }
 }

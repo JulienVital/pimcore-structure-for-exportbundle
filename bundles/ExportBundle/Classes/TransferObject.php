@@ -1,14 +1,26 @@
 <?php
+
 namespace Activepublishing\ExportBundle\Classes;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
 
-class TransferObject{
+class TransferObject
+{
 
+    /**
+     * @SerializedName("className")
+     * @var string
+     */
     public string $className;
 
     public string $key;
-    
+
     public string $path;
-    
+
+    /**
+     * @Type("array<Activepublishing\ExportBundle\Classes\Property>")
+     * @var Activepublishing/ExportBundle/Classes/Property[];
+     */
     public $properties;
 
     /**
@@ -52,11 +64,11 @@ class TransferObject{
     /**
      * Get the value of properties
      *
-     * @return array
+     * @return Property[]
      */
-    public function getProperties():array
+    public function getProperties(): ?array
     {
-        return $this->properties ;
+        return $this->properties;
     }
 
     /**
@@ -68,8 +80,18 @@ class TransferObject{
      */
     public function setProperties($properties): self
     {
+        if (!is_array($properties)) {
+            throw new \InvalidArgumentException('Properties must be an array of Property objects');
+        }
+    
+        foreach ($properties as $property) {
+            if (!$property instanceof Property) {
+                throw new \InvalidArgumentException('All items in properties must be instances of Property');
+            }
+        }
+    
         $this->properties = $properties;
-
+    
         return $this;
     }
 

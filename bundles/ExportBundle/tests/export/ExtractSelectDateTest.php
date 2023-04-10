@@ -4,6 +4,7 @@ use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DateStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Carbon\Carbon;
 use Pimcore\Test\KernelTestCase;
 use Pimcore\Model\DataObject\ObjectDate;
@@ -20,11 +21,12 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDateTime(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -32,12 +34,12 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputDateTime",
                         "type"=> "datetime",
-                        "value"=> "2023-03-28T12:34:56+00:00"
+                        "value"=> ["2023-03-28T12:34:56+00:00"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
     public function testExportInputDate()
@@ -48,11 +50,12 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setInputDate(Carbon::parse('2023-03-28 12:34:56'));
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DateStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -60,12 +63,12 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputDate",
                         "type"=> "date",
-                        "value"=> "2023-03-28T12:34:56+00:00"
+                        "value"=> ["2023-03-28T12:34:56+00:00"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
 
@@ -77,11 +80,12 @@ class ExtractSelectDateTest extends KernelTestCase
         $objectDate->setPath("/dateObject/customPath/");
         $objectDate->setInputTime("10:17");
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectDate);
+        $value = $extractObject->getJson(); 
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectDate",
             "key"=> "key Date Object",
             "path"=> "/dateObject/customPath/",
@@ -89,12 +93,12 @@ class ExtractSelectDateTest extends KernelTestCase
                     [
                         "name" => "InputTime",
                         "type"=> "time",
-                        "value"=> "10:17"
+                        "value"=> ["10:17"]
                     ]
             ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     
     }
 }
