@@ -13,9 +13,6 @@ use Pimcore\Test\KernelTestCase;
 class SerializeDeserializeIsSameTest extends KernelTestCase
 {
 
-
-
-
     public function testDeserializeSerialize()
     {
         $serializer = new JmsSerializer();
