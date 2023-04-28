@@ -20,6 +20,9 @@ class BlockStrategy implements FieldStrategyInterface
 
   public function support($fieldDefinitionType): bool
   {
+    if ($fieldDefinitionType::class === BlockElement::class) {
+      return in_array($fieldDefinitionType->getType(), self::TYPE);
+    }
     return in_array($fieldDefinitionType->fieldtype, self::TYPE);
   }
 
