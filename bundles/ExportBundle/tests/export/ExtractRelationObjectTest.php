@@ -180,6 +180,6 @@ class ExtractRelationObjectTest extends KernelTestCase
                 ]
             ]
         ]);
-        $this->assertTrue(true);
+        $this->assertTrue(false,"not implemented");
     }
 }

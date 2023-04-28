@@ -18,7 +18,7 @@ class Property {
      */
     private $value;
 
-    public function __construct($type='', $name='', $value=''){
+    public function __construct($type='', $name='', $value=[]){
 
         $this->type = $type;
         $this->name = $name;

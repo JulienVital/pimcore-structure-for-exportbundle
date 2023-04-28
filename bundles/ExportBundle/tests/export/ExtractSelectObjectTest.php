@@ -1,6 +1,7 @@
 <?php
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultArrayStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
@@ -223,7 +224,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiSelect(["multiselect 1","multiselect 2","multiselect 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
+        $extractObject = new ExploreObject([new DefaultStrategy(), new DefaultArrayStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
         $value = $extractObject->getJson(); 
@@ -236,7 +237,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiSelect",
                         "type"=> "multiselect",
-                        "value"=> [["multiselect 1","multiselect 2","multiselect 3"]]
+                        "value"=> ["multiselect 1","multiselect 2","multiselect 3"]
                     ]
             ]
         ]]);
@@ -254,7 +255,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiCountry(["country 1","country 2","country 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
+        $extractObject = new ExploreObject([new DefaultStrategy(), new DefaultArrayStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
         $value = $extractObject->getJson(); 
@@ -267,7 +268,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiCountry",
                         "type"=> "countrymultiselect",
-                        "value"=> [["country 1","country 2","country 3"]]
+                        "value"=> ["country 1","country 2","country 3"]
                     ]
             ]
         ]]);
@@ -285,7 +286,7 @@ class ExtractSelectObjectTest extends KernelTestCase
         $selectObject->setInputMultiLanguage(["Lang 1","Lang 2","Lang 3"]);
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
+        $extractObject = new ExploreObject([new DefaultStrategy(), new DefaultArrayStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($selectObject);
         $value = $extractObject->getJson(); 
@@ -298,7 +299,7 @@ class ExtractSelectObjectTest extends KernelTestCase
                     [
                         "name" => "InputMultiLanguage",
                         "type"=> "languagemultiselect",
-                        "value"=> [["Lang 1","Lang 2","Lang 3"]]
+                        "value"=> ["Lang 1","Lang 2","Lang 3"]
                     ]
             ]
         ]]);
