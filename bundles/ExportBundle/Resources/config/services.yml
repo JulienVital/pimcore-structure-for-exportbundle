@@ -10,9 +10,10 @@ services:
         public: false
         bind:
     _instanceof:
-        # services whose classes are instances of CustomInterface will be tagged automatically
         Activepublishing\ExportBundle\Service\Export\Strategy\FieldStrategyInterface:
             tags: ['field_strategy']
+            public: true
+
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
 

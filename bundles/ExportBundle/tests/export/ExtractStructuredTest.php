@@ -2,8 +2,10 @@
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\BlockStrategy;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DateStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultArrayStrategy;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
+use Activepublishing\ExportBundle\Service\Export\StrategyIterable;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Pimcore\Model\DataObject\ObjectStructured;
@@ -71,7 +73,10 @@ class ExtractStructuredTest extends KernelTestCase
 
         $objectStructured = ObjectStructured::getById(2);
         $exportQueue = new ExportQueue();
-        $extractObject = new ExploreObject([new DefaultStrategy(), new BlockStrategy()], $exportQueue, new JmsSerializer());
+        $container = $this->getContainer();
+        $someService = $container->get(StrategyIterable::class);
+        $list = $someService->getStrategies();
+        $extractObject = new ExploreObject([new DefaultStrategy(), new BlockStrategy($list)], $exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectStructured);
         $value = $extractObject->getJson();
@@ -81,11 +86,6 @@ class ExtractStructuredTest extends KernelTestCase
             "key" => "key structured Object",
             "path" => "/",
             "properties" => [
-                [
-                    "name" => "TableProperty",
-                    "type" => "table",
-                    "value" => []
-                ],
                 [
                     "name" => "BlockProperty",
                     "type" => "block",
