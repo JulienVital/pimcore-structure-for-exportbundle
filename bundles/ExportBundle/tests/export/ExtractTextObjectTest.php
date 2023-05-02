@@ -10,6 +10,10 @@ use Pimcore\Test\KernelTestCase;
 class ExtractTextObjectTest extends KernelTestCase
 {
 
+    protected function setUp():void{
+        static::bootKernel();
+    }
+
     public function testExportClassText(){
         $objectText = new ObjectText();
         $objectText->setKey("KeyName example");
