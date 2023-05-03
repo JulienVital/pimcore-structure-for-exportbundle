@@ -12,7 +12,6 @@ services:
     _instanceof:
         Activepublishing\ExportBundle\Service\Export\Strategy\FieldStrategyInterface:
             tags: ['field_strategy']
-            public: true
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
@@ -30,5 +29,3 @@ services:
     # auto-register all services as services
     Activepublishing\ExportBundle\Service\:
         resource: '../../Service'
-        public: true
-

@@ -22,9 +22,11 @@ class DefaultArrayStrategy implements FieldStrategyInterface
     return in_array($fieldDefinitionType->fieldtype, self::TYPE);
   }
 
-  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): ?Property
   {
-
+    if(count($value)===0){
+        return null;
+    }
     return new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,

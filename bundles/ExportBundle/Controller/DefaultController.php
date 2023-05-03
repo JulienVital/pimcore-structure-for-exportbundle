@@ -3,6 +3,7 @@
 namespace Activepublishing\ExportBundle\Controller;
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\StrategyIterable;
 use Activepublishing\ExportBundle\Service\Import\ImportTree;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\DataObject\Concrete;
@@ -14,7 +15,7 @@ class DefaultController extends FrontendController
 {
     private $extractObject;
 
-    public function __construct(ExploreObject $exploreObject)
+    public function __construct(ExploreObject $exploreObject, StrategyIterable $strategy)
     {
         $this->extractObject = $exploreObject;
     }

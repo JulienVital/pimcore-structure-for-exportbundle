@@ -7,6 +7,8 @@ use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Export\StrategyIterable;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject\Data\ExternalImage;
 use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Model\DataObject\Fieldcollection\Data\FieldCollectionOne;
@@ -78,10 +80,11 @@ class ExtractStructuredTest extends KernelTestCase
             ->setFieldCollectionProperty($fieldCollection);
 
         $exportQueue = new ExportQueue();
-        $container = $this->getContainer();
-        $someService = $container->get(StrategyIterable::class);
+        self::bootKernel();
+        $container = static::getContainer();
+        $someService = $container->get("Activepublishing\ExportBundle\Service\Export\StrategyIterable");
         $list = $someService->getStrategies();
-        $extractObject = new ExploreObject([new DefaultStrategy(), new FieldCollectionStrategy($list)], $exportQueue, new JmsSerializer());
+        $extractObject = new ExploreObject($list, $exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectStructured);
         $value = $extractObject->getJson();
@@ -123,6 +126,62 @@ class ExtractStructuredTest extends KernelTestCase
                 ]
             ]
         ]]);
+        $this->assertJsonStringEqualsJsonString($expect, $value);
+    }
+
+    public function testExportLocalizedField()
+    {
+        self::bootKernel();
+        $image1 = new Image();
+        $image1->setFilename("myAsset1.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");
+        $image2 = new Image();
+        $image2->setFilename("myAsset2.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");
+        $objectStructured = new ObjectStructured();
+        $objectStructured->setKey("custom key structured Object")
+            ->setPath("/root/customPath/")
+            ->setInputLocalizedProperty("input ien", "en")
+            ->setInputLocalizedProperty("input fr", "fr")
+            ->setLocalizedImage($image1, "en")
+            ->setLocalizedImage($image2, "fr")
+            ->setExternalLocalizedProperty(new ExternalImage("https://picsum.photos/300/300"), "en")
+            ->setExternalLocalizedProperty(new ExternalImage("https://picsum.photos/200/300"), "fr");
+
+        $exportQueue = new ExportQueue();
+        $container = static::getContainer();
+        $someService = $container->get("Activepublishing\ExportBundle\Service\Export\StrategyIterable");
+        $list = $someService->getStrategies();
+        $extractObject = new ExploreObject($list, $exportQueue, new JmsSerializer());
+
+        $value = $extractObject->export($objectStructured);
+        $value = $extractObject->getJson();
+
+        $expect = json_encode([[
+            "className" => ObjectStructured::class,
+            "key" => "custom key structured Object",
+            "path" => "/root/customPath/",
+            "properties" =>[
+                [
+                    "name" => "localizedfields",
+                    "type" => "localizedfields",
+                    "value" => [
+                        "en"=>[]
+                    ]
+                ]
+            ]
+        ]]);
+
+        // $tempObject = ObjectStructured::getById(2);
+        $fields = $objectStructured->getClass()->getFieldDefinitions();
+        $localizeField = $objectStructured->getLocalizedfields();
+        // $items = $tempObject->getLocalizedfields()->getItems();
+        // $internal = $tempObject->getLocalizedfields()->getInternalData();
+
+        $fieldDef = $localizeField->getFieldDefinition("localizedImage");
+        // new Pimcore\Model\DataObject\Localizedfield();
         $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 }
