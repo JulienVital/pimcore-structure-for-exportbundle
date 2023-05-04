@@ -10,7 +10,15 @@
   convertWarningsToExceptions="true"
   printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinterForPhpUnit9"
   >
-
+    <coverage processUncoveredFiles="true">
+      <include>
+          <directory suffix=".php">bundles</directory>
+      </include>
+      <report>
+          <!-- <text outputFile="php://stdout" showUncoveredFiles="true"/> -->
+          <!-- <html outputDirectory="coverage/"/> -->
+      </report>
+   </coverage>
   <testsuites>
     <testsuite name="IdmlTests">
         <directory suffix=".php">bundles/ExportBundle/tests</directory>

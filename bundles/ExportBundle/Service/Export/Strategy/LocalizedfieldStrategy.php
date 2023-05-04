@@ -29,12 +29,7 @@ class LocalizedfieldStrategy implements FieldStrategyInterface
         }
         $response = [];
         foreach ($value->getItems() as $lang => $langValue) {
-            foreach ($langValue as $fieldName => $fieldValue) {
-                # code...
-                $fieldDef = $value->getFieldDefinition($fieldName);
-
-                $response[$lang][$fieldName] = $this->getProperty($fieldDef, $fieldValue, $queue);
-            }
+            $response[$lang] =$this->getSubProperties($langValue,$value, $queue);
         }
         return  new Property(
             $fieldDefinition->fieldtype,
@@ -42,7 +37,16 @@ class LocalizedfieldStrategy implements FieldStrategyInterface
             $response
         );
     }
+    private function getSubProperties($entriesForAlang, $localizedfield,$queue ){
+        $response = [];
+        foreach ($entriesForAlang as $fieldName => $fieldValue) {
+            # code...
+            $fieldDef = $localizedfield->getFieldDefinition($fieldName);
 
+            $response[$fieldName] = $this->getProperty($fieldDef, $fieldValue, $queue);
+        }
+        return $response;
+    }
     /**
      * @param mixed $fieldDefinition
      * @param DataObject $object
