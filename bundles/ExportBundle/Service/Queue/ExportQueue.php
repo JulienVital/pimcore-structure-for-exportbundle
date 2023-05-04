@@ -8,8 +8,15 @@ Class ExportQueue implements ExportQueueInterface{
 
     private $items = [];
 
+    private $history = [];
+
     public function enqueue(DataObject|Asset $newObject){
+        $name = $newObject->getFullPath();
+        if(array_key_exists($name, $this->history)){
+            return;
+        }
         $this->items[]=$newObject;
+        $this->history[$name]=true;
     }
 
     public function getQueue(){
@@ -17,7 +24,7 @@ Class ExportQueue implements ExportQueueInterface{
     }
 
     public function dequeue(){
-        
+
         return array_shift($this->items);
     }
     public function isEmpty():bool{
