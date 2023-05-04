@@ -163,12 +163,57 @@ class ExtractStructuredTest extends KernelTestCase
             "className" => ObjectStructured::class,
             "key" => "custom key structured Object",
             "path" => "/root/customPath/",
-            "properties" =>[
+            "properties" => [
                 [
                     "name" => "localizedfields",
                     "type" => "localizedfields",
                     "value" => [
-                        "en"=>[]
+                        "en" => [
+                            "ExternalLocalizedProperty" => [
+                                "name" => "ExternalLocalizedProperty",
+                                "type" => "externalImage",
+                                "value" => [
+                                    "https://picsum.photos/300/300"
+                                ]
+                            ],
+                            "inputLocalizedProperty" => [
+                                "name" => "inputLocalizedProperty",
+                                "type" => "input",
+                                "value" => [
+                                    "input ien"
+                                ]
+                            ],
+                            "localizedImage" => [
+                                "name" => "localizedImage",
+                                "type" => "image",
+                                "value" => [
+                                    "/root/CustomPath/myAsset1.png"
+                                ]
+                            ]
+                        ],
+                        "fr" => [
+                            "ExternalLocalizedProperty" => [
+                                "name" => "ExternalLocalizedProperty",
+                                "type" => "externalImage",
+                                "value" => [
+                                    "https://picsum.photos/200/300"
+                                ]
+                            ],
+                            "inputLocalizedProperty" => [
+                                "name" => "inputLocalizedProperty",
+                                "type" => "input",
+                                "value" => [
+                                    "input fr"
+                                ]
+                            ],
+                            "localizedImage" => [
+                                "name" => "localizedImage",
+                                "type" => "image",
+                                "value" => [
+                                    "/root/CustomPath/myAsset2.png"
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ]
@@ -182,6 +227,67 @@ class ExtractStructuredTest extends KernelTestCase
 
         $fieldDef = $localizeField->getFieldDefinition("localizedImage");
         // new Pimcore\Model\DataObject\Localizedfield();
+        $this->assertJsonStringEqualsJsonString($expect, $value);
+    }
+
+    public function testExportLocalizedFieldwithoutSymmetry    ()
+    {
+        self::bootKernel();
+        $image1 = new Image();
+        $image1->setFilename("myAsset1.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");
+        $image2 = new Image();
+        $image2->setFilename("myAsset2.png")
+            ->setPath("/root/CustomPath/")
+            ->setData("data ...");
+        $objectStructured = new ObjectStructured();
+        $objectStructured->setKey("custom key structured Object")
+            ->setPath("/root/customPath/")
+            ->setLocalizedImage($image2, "fr")
+            ->setExternalLocalizedProperty(new ExternalImage("https://picsum.photos/300/300"), "en");
+
+        $exportQueue = new ExportQueue();
+        $container = static::getContainer();
+        $someService = $container->get("Activepublishing\ExportBundle\Service\Export\StrategyIterable");
+        $list = $someService->getStrategies();
+        $extractObject = new ExploreObject($list, $exportQueue, new JmsSerializer());
+
+        $value = $extractObject->export($objectStructured);
+        $value = $extractObject->getJson();
+
+        $expect = json_encode([[
+            "className" => ObjectStructured::class,
+            "key" => "custom key structured Object",
+            "path" => "/root/customPath/",
+            "properties" => [
+                [
+                    "name" => "localizedfields",
+                    "type" => "localizedfields",
+                    "value" => [
+                        "en" => [
+                            "ExternalLocalizedProperty" => [
+                                "name" => "ExternalLocalizedProperty",
+                                "type" => "externalImage",
+                                "value" => [
+                                    "https://picsum.photos/300/300"
+                                ]
+                            ],
+                        ],
+                        "fr" => [
+                            "localizedImage" => [
+                                "name" => "localizedImage",
+                                "type" => "image",
+                                "value" => [
+                                    "/root/CustomPath/myAsset2.png"
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]]);
+
         $this->assertJsonStringEqualsJsonString($expect, $value);
     }
 }
