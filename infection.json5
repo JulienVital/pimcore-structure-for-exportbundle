@@ -1,0 +1,13 @@
+{
+    "source": {
+        "directories": [
+            "bundles/ExportBundle"
+        ],
+        "excludes": [
+            "bundles/ExportBundle/tests",
+        ]
+    },
+
+    "testFramework":"phpunit",
+    "bootstrap":"./tests/bootstrap.php",
+}

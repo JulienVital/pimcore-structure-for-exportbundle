@@ -1,4 +1,5 @@
 <?php
+namespace Activepublishing\ExportBundle\tests\export;
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
@@ -71,7 +72,8 @@ class ExtractTextObjectTest extends KernelTestCase
             "key"=> "KeyName example",
             "path"=> "/",
             "properties"=>[
-                    [
+                "simple"=>[
+                    "textarea" =>[
                     "name" => "textarea",
                     "type"=> "textarea",
                     "value"=> ["Textarea value \n example"]
