@@ -5,16 +5,18 @@
  * Variants: no
  *
  * Fields Summary:
- * - number [numeric]
+ * - InputDate [date]
+ * - InputDateTime [datetime]
+ * - InputTime [time]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '2',
-   'name' => 'ObjetTypeTWO',
+   'id' => 'ODate',
+   'name' => 'ObjectDate',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679477781,
+   'modificationDate' => 1680208655,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -63,9 +65,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'number',
-             'title' => 'Number',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+             'name' => 'InputDate',
+             'title' => 'Input Date',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -74,7 +76,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
-             'fieldtype' => 'numeric',
+             'fieldtype' => 'date',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -82,16 +84,71 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'width' => '',
+             'queryColumnType' => 'bigint(20)',
+             'columnType' => 'bigint(20)',
              'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
+             'useCurrentDate' => false,
+             'defaultValueGenerator' => '',
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Datetime::__set_state(array(
+             'name' => 'InputDateTime',
+             'title' => 'Input Date Time',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'fieldtype' => 'datetime',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'queryColumnType' => 'bigint(20)',
+             'columnType' => 'bigint(20)',
+             'defaultValue' => NULL,
+             'useCurrentDate' => false,
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Time::__set_state(array(
+             'name' => 'InputTime',
+             'title' => 'Input Time',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'fieldtype' => 'time',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => 0,
+             'defaultValue' => NULL,
+             'columnLength' => 5,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'defaultValueGenerator' => '',
              'minValue' => NULL,
              'maxValue' => NULL,
-             'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
-             'defaultValueGenerator' => '',
+             'increment' => 15,
           )),
         ),
          'locked' => false,

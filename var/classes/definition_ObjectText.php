@@ -16,7 +16,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ObjectText',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679502734,
+   'modificationDate' => 1683012846,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -257,81 +257,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Password::__set_state(array(
-       'name' => 'password',
-       'title' => 'Password',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'datatype' => 'data',
-       'fieldtype' => 'password',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'width' => '',
-       'queryColumnType' => 'varchar(255)',
-       'columnType' => 'varchar(255)',
-       'algorithm' => 'password_hash',
-       'salt' => '',
-       'saltlocation' => 'back',
-       'minimumLength' => NULL,
-    )),
-    1 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\InputQuantityValue::__set_state(array(
-       'name' => 'quantityvaluetext',
-       'title' => 'Quantity',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'datatype' => 'data',
-       'fieldtype' => 'inputQuantityValue',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'width' => '',
-       'unitWidth' => NULL,
-       'defaultValue' => NULL,
-       'defaultUnit' => NULL,
-       'validUnits' => 
-      array (
-      ),
-       'integer' => false,
-       'unsigned' => false,
-       'minValue' => NULL,
-       'maxValue' => NULL,
-       'unique' => false,
-       'decimalSize' => NULL,
-       'decimalPrecision' => NULL,
-       'autoConvert' => false,
-       'queryColumnType' => 
-      array (
-        'value' => 'varchar(255)',
-        'unit' => 'varchar(50)',
-      ),
-       'columnType' => 
-      array (
-        'value' => 'varchar(255)',
-        'unit' => 'varchar(50)',
-      ),
-       'defaultValueGenerator' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

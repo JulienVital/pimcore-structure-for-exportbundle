@@ -11,12 +11,14 @@
     }
   },
   "require": {
+    "jms/serializer": "^3.23.0",
     "pimcore/pimcore": "^10.5"
   },
   "require-dev": {
     "codeception/codeception": "^4.1.12",
     "codeception/module-symfony": "^1",
     "infection/infection": "^0.26.21",
+    "phpstan/phpstan": "^1.10",
     "sempro/phpunit-pretty-print": "^1.4",
     "symfony/phpunit-bridge": "^6.2"
   },

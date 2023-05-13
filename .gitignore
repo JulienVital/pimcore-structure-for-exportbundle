@@ -17,8 +17,8 @@
 
 /var/*
 !/var/.gitkeep
-!/var/classes/
-/var/classes/DataObject
+# !/var/classes/
+# /var/classes/DataObject
 
 !/var/config
 /var/config/system.yml
@@ -49,3 +49,4 @@ nbproject
 .temp
 cache
 .phpunit.result.cache
+/coverage/

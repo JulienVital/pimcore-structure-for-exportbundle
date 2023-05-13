@@ -1,13 +1,19 @@
 <?php
 namespace Activepublishing\ExportBundle\tests\export;
 
-use Activepublishing\ExportBundle\Service\Export\ExportObject;
+use Activepublishing\ExportBundle\Service\Export\ExploreObject;
+use Activepublishing\ExportBundle\Service\Export\Strategy\DefaultStrategy;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
+use Activepublishing\ExportBundle\Service\Serializer\JmsSerializer;
 use Pimcore\Model\DataObject\ObjectText;
 use Pimcore\Test\KernelTestCase;
 
 class ExtractTextObjectTest extends KernelTestCase
 {
+
+    protected function setUp():void{
+        static::bootKernel();
+    }
 
     public function testExportClassText(){
         $objectText = new ObjectText();
@@ -18,36 +24,35 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setTextarea("Textarea value \n example");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectText);
+        $value = $extractObject->getJson();
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "path"=> "/",
             "properties"=>[
-                "simple"=>[
-                    "textarea" =>[
+                    [
                         "name" => "textarea",
                         "type"=> "textarea",
-                        "value"=> "Textarea value \n example"
+                        "value"=> ["Textarea value \n example"]
                     ],
-                    "simpleInput" => [
+                    [
                         "name" => "simpleInput",
                         "type"=> "input",
-                        "value"=> "fixture simple Input"
+                        "value"=> ["fixture simple Input"]
                     ],
-                    "wysiwyg"  => [
+                    [
                         "name" => "wysiwyg",
                         "type"=> "wysiwyg",
-                        "value"=> "<p>lk!</p>"
+                        "value"=> ["<p>lk!</p>"]
                     ],
                 ]
-            ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportClassTextOnlyOneField(){
@@ -57,11 +62,12 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject([new DefaultStrategy()],$exportQueue, new JmsSerializer());
 
-        $value = $extractObject->export($objectText);
+        $extractObject->export($objectText);
+        $value = $extractObject->getJson();
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "path"=> "/",
@@ -70,12 +76,11 @@ class ExtractTextObjectTest extends KernelTestCase
                     "textarea" =>[
                     "name" => "textarea",
                     "type"=> "textarea",
-                    "value"=> "Textarea value \n example"
+                    "value"=> ["Textarea value \n example"]
                 ]]
-            ]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 
     public function testExportClassTextWithoutProperties(){
@@ -84,17 +89,18 @@ class ExtractTextObjectTest extends KernelTestCase
         $objectText->setPath("/");
 
         $exportQueue = new ExportQueue();
-        $extractObject = new ExportObject($exportQueue);
+        $extractObject = new ExploreObject([],$exportQueue, new JmsSerializer());
 
         $value = $extractObject->export($objectText);
+        $value = $extractObject->getJson();
 
-        $expect = json_encode([
+        $expect = json_encode([[
             "className"=>"Pimcore\Model\DataObject\ObjectText",
             "key"=> "KeyName example",
             "path"=> "/",
             "properties"=>[]
-        ]);
+        ]]);
 
-        $this->assertEquals($expect,json_encode($value) );
+        $this->assertJsonStringEqualsJsonString($expect,$value );
     }
 }

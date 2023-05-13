@@ -36,6 +36,7 @@ services:
         volumes:
             - .:/var/www/html:cached
             - pimcore-tmp-storage:/tmp:cached
+            - ./.docker/20-xdebug.ini:/usr/local/etc/php/conf.d/20-xdebug.ini:ro
 
     php-fpm-debug:
         user: '1000:1000' # set to your uid:gid
@@ -45,6 +46,8 @@ services:
         volumes:
             - .:/var/www/html:cached
             - pimcore-tmp-storage:/tmp:cached
+            - ./.docker/20-xdebug.ini:/usr/local/etc/php/conf.d/20-xdebug.ini:ro
+
         environment:
             PHP_IDE_CONFIG: serverName=localhost
             COMPOSER_HOME: /var/www/html
