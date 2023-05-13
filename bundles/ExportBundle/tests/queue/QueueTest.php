@@ -1,4 +1,5 @@
 <?php
+namespace Activepublishing\ExportBundle\tests\queue;
 
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
 use Pimcore\Model\DataObject;

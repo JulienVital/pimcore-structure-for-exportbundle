@@ -1,4 +1,5 @@
 <?php
+namespace Activepublishing\ExportBundle\tests\export;
 
 use Activepublishing\ExportBundle\Service\Export\ExportObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;
@@ -106,7 +107,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $subSubFolder2 = new Folder();
         $subSubFolder2->setKey('sub sub Folder2')
             ->setPath('/root Folder/sub Folder/');
-        
+
         $subFolderignore = new Folder();
         $subFolderignore->setKey('sub Folder subFolderignore')
             ->setPath('/root Folder/');
@@ -115,7 +116,7 @@ class ExtractFolderObjectTest extends KernelTestCase
         $rootFolder->setKey('root Folder')
             ->setPath('/')
             ->setChildren([$subFolderignore]);
-            
+
         $subFolder = new Folder();
         $subFolder->setKey('sub Folder')
             ->setPath('/root Folder/')

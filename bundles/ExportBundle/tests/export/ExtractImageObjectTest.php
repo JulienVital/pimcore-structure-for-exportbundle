@@ -1,4 +1,5 @@
 <?php
+namespace Activepublishing\ExportBundle\tests\export;
 
 use Pimcore\Model\Asset\Image;
 use Pimcore\Test\KernelTestCase;
