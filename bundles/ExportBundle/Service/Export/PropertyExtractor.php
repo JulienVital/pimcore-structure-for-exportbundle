@@ -2,10 +2,8 @@
 
 namespace Activepublishing\ExportBundle\Service\Export;
 
-use Activepublishing\ExportBundle\Classes\Properties;
 use Activepublishing\ExportBundle\Classes\Property;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueueInterface;
-use Exception;
 use Pimcore\Model\DataObject;
 
 class PropertyExtractor

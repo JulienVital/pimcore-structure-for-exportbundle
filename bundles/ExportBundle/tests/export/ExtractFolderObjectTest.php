@@ -1,4 +1,5 @@
 <?php
+namespace Activepublishing\ExportBundle\tests\export;
 
 use Activepublishing\ExportBundle\Service\Export\ExploreObject;
 use Activepublishing\ExportBundle\Service\Queue\ExportQueue;

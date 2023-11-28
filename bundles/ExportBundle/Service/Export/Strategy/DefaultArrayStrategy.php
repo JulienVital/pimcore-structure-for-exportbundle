@@ -7,20 +7,14 @@ use Exception;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-class DefaultStrategy implements FieldStrategyInterface
+class DefaultArrayStrategy implements FieldStrategyInterface
 {
 
   const TYPE = [
-    "textarea",
-    "input",
-    "wysiwyg",
-    "language",
-    "country",
-    "user",
-    "select",
-    "time",
-    "booleanSelect",
-    "booleanSelect",
+    "languagemultiselect",
+    "countrymultiselect",
+    "multiselect",
+    "table"
   ];
 
   public function support($fieldDefinitionType): bool
@@ -28,13 +22,15 @@ class DefaultStrategy implements FieldStrategyInterface
     return in_array($fieldDefinitionType->fieldtype, self::TYPE);
   }
 
-  public function extractPropertyAndAddRelationsToQueue($fieldDefinition, mixed $value, $queue): Property
+  public function extractPropertyAndAddRelationsToQueue(Data $fieldDefinition, mixed $value, $queue): ?Property
   {
-
+    if(count($value)===0){
+        return null;
+    }
     return new Property(
       $fieldDefinition->fieldtype,
       $fieldDefinition->name,
-      [$value]
+      $value
     );
   }
 }
