@@ -19,7 +19,7 @@ pimcore.plugin.ExportBundle = Class.create(pimcore.plugin.admin, {
                 text: "Export This",
                 icon: "/bundles/pimcoreadmin/img/flat-color-icons/download.svg",
                 handler: function() {
-                    // synchronize(object);
+                    synchronize(object);
                 }
             });
 
@@ -41,10 +41,23 @@ function synchronize(object) {
         },
         method: 'GET',
         success: function(response) {
-            console.log(FileSystem);
-            pimcore.helpers.loadingHide();
+            var jsonData = Ext.decode(response.responseText);
+            
+                var jsonString = Ext.JSON.encode(jsonData);
+
+                var blob = new Blob([jsonString], { type: "application/json" })
+                const url = window.URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url
+                a.download = 'export.json'
+                a.style.display = 'none'
+                document.body.appendChild(a)
+                a.click()
+                window.URL.revokeObjectURL(url)
         }
     })
+    pimcore.helpers.loadingHide();
+
 }
 
 

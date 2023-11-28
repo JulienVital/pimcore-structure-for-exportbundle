@@ -1,8 +1,9 @@
 <?php
 namespace Activepublishing\ExportBundle\Classes;
 use JMS\Serializer\Annotation\Type;
+use JsonSerializable;
 
-class Property {
+class Property implements JsonSerializable{
     /**
      * @Type("string")
      */
@@ -18,7 +19,15 @@ class Property {
      */
     private $value;
 
-    public function __construct($type='', $name='', $value=[]){
+    public function jsonSerialize() {
+        return [
+            "type" =>$this->type,
+            "name" =>$this->name,
+            "value" =>$this->value,
+        ];
+    }
+
+    public function __construct($type='', $name='', $value=''){
 
         $this->type = $type;
         $this->name = $name;
