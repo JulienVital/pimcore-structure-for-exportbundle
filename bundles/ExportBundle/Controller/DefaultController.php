@@ -27,7 +27,8 @@ class DefaultController extends FrontendController
     {
 
         $object =Concrete::getById($object);
-        $response = json_encode($this->extractObject->exportTree($object));
+        $extracted = $this->extractObject->exportTree($object);
+        $response = json_encode($extracted);
 
         $str =  $response;
         $file_name = $object->getKey().".json";
